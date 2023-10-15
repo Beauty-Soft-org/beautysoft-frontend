@@ -1,0 +1,147 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 25%;
+    min-width: 30rem;
+    align-items: center;
+    gap: 1.5rem;
+    padding-left: 4rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    .more:hover {
+      cursor: pointer;
+      color: rgb(27, 20, 100);
+    }
+
+    .Link {
+      text-decoration: none;
+      color: rgb(27, 20, 100);
+    }
+  }
+
+  .nameMenu {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    line-height: 0;
+    padding-top: 5%;
+    text-align: center;
+    width: 50%;
+    font-family: cursive;
+    font-size: large;
+    color: rgb(27, 20, 100);
+    min-width: 20rem;
+  }
+
+  .menuLogin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    width: 25%;
+    padding-left: 4rem;
+    color: rgb(27, 20, 100);
+  }
+
+  .dropdownMoreContent {
+    position: absolute;
+    font-size: 1rem;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    width: 10.05rem;
+
+    .dropdownLinkProcedimentos {
+      text-decoration: none;
+      color: black;
+      text-align: left;
+      font-weight: 400;
+      padding: .2rem 1rem .2rem 1rem;
+    }
+
+    .dropdownLinkVoucher {
+      text-decoration: none;
+      color: black;
+      text-align: left;
+      font-weight: 400;
+      padding: .2rem 1rem .2rem 1rem;
+    }
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .iconButton:hover {
+    cursor: pointer;
+  }
+
+  .dropdownIcon {
+    cursor: pointer;
+  }
+
+  .dropdownLinkA,
+  .dropdownLinkB {
+    text-decoration: none;
+    color: black;
+    text-align: left;
+    font-weight: 400;
+    padding: 0rem 1rem 0rem 1rem;
+  }
+
+  .dropdownLinkA {
+    padding-top: .2rem;
+  }
+
+  .dropdownLinkB {
+    padding-bottom: .5rem;
+  }
+
+  .dropdownLinkA:hover,
+  .dropdownLinkB:hover {
+    color: blue;
+  }
+
+  .dropdownContent {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    width: 100% !important;
+
+    .menu,
+    .menuLogin {
+      font-size: 1rem !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      padding-left: .5rem !important;
+      gap: .5rem;
+      text-align: center !important;
+    }
+
+    .nameMenu {
+      font-size: 1rem !important;
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+  }
+}
