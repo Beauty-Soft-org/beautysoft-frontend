@@ -1,0 +1,86 @@
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.registerBox {
+  background-color: #fff;
+  padding: 0 20px 20px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+}
+
+h2 {
+  margin-top: 2rem !important;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  display: flex;
+  margin-top: -5px;
+  margin-bottom: 1.5px;
+  margin-left: 1.3px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 94.3% !important;
+}
+
+.registerButton {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%
+}
+
+.registerButton:hover,
+.voltarButton:hover {
+  background-color: #1565c0;
+}
+
+.voltarButton {
+  background-color: #1877f2;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-top: .5rem;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .registerBox {
+    width: 90%;
+    max-width: none;
+  }
+}

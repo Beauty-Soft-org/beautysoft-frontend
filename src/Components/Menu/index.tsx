@@ -44,7 +44,7 @@ function Menu() {
           {dropdownIcon && (
             <div className={styles.dropdownContent}>
               <Link to="/login" className={styles.dropdownLinkA}>Login</Link>
-              <Link to="/login" className={styles.dropdownLinkB}>Register</Link>
+              <Link to="/register" className={styles.dropdownLinkB}>Register</Link>
             </div>
           )}
         </div>

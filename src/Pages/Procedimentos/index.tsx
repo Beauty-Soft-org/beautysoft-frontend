@@ -32,9 +32,9 @@ const Procedimentos: React.FC = () => {
 
   const handleClickCadastro = () => {
 
-    setNomeError(nome ? null : "Nome é obrigatório");
-    setDescricaoError(descricao ? null : "Descrição é obrigatória");
-    setValorError(valor ? null : "Valor é obrigatório");
+    setNomeError(nome ? null : "Nome é obrigatório!");
+    setDescricaoError(descricao ? null : "Descrição é obrigatória!");
+    setValorError(valor ? null : "Valor é obrigatório!");
 
     const filter = {
       nome,
