@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia';
+import Config from '../../Config.json';
 
 const Procedimentos: React.FC = () => {
   const [nome, setNome] = useState<string>('');
@@ -44,7 +45,7 @@ const Procedimentos: React.FC = () => {
       tipoProcedimento,
     }
 
-    const apiUrl = 'http://localhost:5082/api/Procedimento';
+    const apiUrl = `${Config.baseUrl}/api/Procedimento`;
 
     axios.post(apiUrl, filter)
       .then((_response) => {
@@ -55,9 +56,14 @@ const Procedimentos: React.FC = () => {
       .catch((error) => {
         console.error('Erro ao cadastrar procedimento:', error);
       });
-  };
+  }
 
   const handleClickAlterar = () => {
+
+    setNomeError(nome ? null : "Nome é obrigatório!");
+    setDescricaoError(descricao ? null : "Descrição é obrigatória!");
+    setValorError(valor ? null : "Valor é obrigatório!");
+
     const filter = {
       nome,
       descricao,
@@ -66,7 +72,7 @@ const Procedimentos: React.FC = () => {
       tipoProcedimento,
     }
 
-    const apiUrl = `http://localhost:5082/api/Procedimento/${row}`;
+    const apiUrl = `${Config.baseUrl}/api/Procedimento/${row}`;
 
     axios.put(apiUrl, filter)
       .then((_response) => {
@@ -78,7 +84,7 @@ const Procedimentos: React.FC = () => {
       .catch((error) => {
         console.error('Erro ao alterar procedimento:', error);
       });
-  };
+  }
 
   function limpar() {
     setNome('');
@@ -89,7 +95,7 @@ const Procedimentos: React.FC = () => {
   }
 
   const run = () => {
-    const apiUrl = 'http://localhost:5082/api/Procedimento';
+    const apiUrl = `${Config.baseUrl}/api/Procedimento`;
 
     axios.get(apiUrl)
       .then((response) => {
@@ -116,7 +122,7 @@ const Procedimentos: React.FC = () => {
     const confirmDelete = window.confirm('Tem certeza de que deseja excluir este procedimento?');
 
     if (confirmDelete) {
-      const apiUrl = `http://localhost:5082/api/Procedimento/${index}`;
+      const apiUrl = `${Config.baseUrl}/api/Procedimento/${index}`;
 
       axios.delete(apiUrl)
         .then((_response) => {
@@ -133,20 +139,21 @@ const Procedimentos: React.FC = () => {
     setAlterar(true);
     setRow(index);
 
-    const apiUrl = `http://localhost:5082/api/Procedimento/${index}`;
+    const apiUrl = `${Config.baseUrl}/api/Procedimento/${index}`;
 
-    axios.get(apiUrl)
-      .then((response) => {
-        setNome(response.data.nome);
-        setDescricao(response.data.descricao);
-        setValor(response.data.valor);
-        setTipoProcedimento(response.data.tipoProcedimento);
-        setImagem(response.data.inserirArquivo);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar procedimento:', error);
-      });
-
+    if (nome && descricao && valor) {
+      axios.get(apiUrl)
+        .then((response) => {
+          setNome(response.data.nome);
+          setDescricao(response.data.descricao);
+          setValor(response.data.valor);
+          setTipoProcedimento(response.data.tipoProcedimento);
+          setImagem(response.data.inserirArquivo);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar procedimento:', error);
+        });
+    }
   };
 
   function voltarCadastro() {

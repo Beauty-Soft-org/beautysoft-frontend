@@ -1,0 +1,38 @@
+.imageContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 2px 6px 6px 2px;
+}
+
+.textOverlay {
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 2px 6px 6px 2px;
+  background-color: white;
+  width: 18.14rem;
+  position: absolute;
+  top: 16rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #1B1464;
+  font-family: 'Courier New', Courier, monospace;
+  overflow-y: auto;
+}
+
+.textOverlay p {
+  font-size: 1rem !important;
+  width: 95% !important;
+  text-align: left;
+  max-height: 6.5rem;
+}
+
+.title {
+  position: sticky;
+  top: 0rem;
+}

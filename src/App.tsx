@@ -6,6 +6,7 @@ import Home from './Pages/Home';
 import Procedimentos from './Pages/Procedimentos';
 import Voucher from './Pages/Voucher';
 import Register from './Pages/Register';
+import CadastroMensagem from './Pages/CadastroMensagem';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/procedimentos" element={<Procedimentos />} />
         <Route path="/voucher" element={<Voucher />} />
+        <Route path="/cadastroMensagens" element={<CadastroMensagem />} />
       </Routes>
     </BrowserRouter>
   );

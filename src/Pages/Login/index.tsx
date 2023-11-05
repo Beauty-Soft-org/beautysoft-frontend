@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './login.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Config from '../../Config.json';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ const Login: React.FC = () => {
     setEmailError(password ? null : "Email é obrigatório!");
     setPasswordError(email ? null : "Senha é obrigatória!");
 
-    const apiUrl = 'http://localhost:5080/Users/Details/5';
+    const apiUrl = `${Config.baseUrl}/Users/Details/5`;
     axios.get(apiUrl)
       .then((response) => {
         setData(response.data);

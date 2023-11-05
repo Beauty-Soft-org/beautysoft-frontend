@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './register.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Config from '../../Config.json';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Register: React.FC = () => {
     if (confirmPassword !== password) {
       setConfirmPasswordError("As senhas não são iguais!");
     } else {
-      const apiUrl = 'http://localhost:5080/Users/Details/5';
+      const apiUrl = `${Config.baseUrl}/Users/Details/5`;
       setConfirmPasswordError(null);
       axios.get(apiUrl)
         .then((response) => {

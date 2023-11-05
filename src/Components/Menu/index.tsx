@@ -28,6 +28,7 @@ function Menu() {
             <div className={styles.dropdownMoreContent}>
               <Link to="/procedimentos" className={styles.dropdownLinkProcedimentos}>Procedimentos</Link>
               <Link to="/voucher" className={styles.dropdownLinkVoucher}>Voucher</Link>
+              <Link to="/cadastroMensagens" className={styles.dropdownLinkVoucher}>Mensagens</Link>
             </div>
           )}
         </div>
