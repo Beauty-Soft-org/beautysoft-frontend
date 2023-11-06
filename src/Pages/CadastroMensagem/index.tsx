@@ -15,47 +15,81 @@ const CadastroMensagem: React.FC = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [alterar, setAlterar] = useState<boolean>(false);
   const [tipoMensagemTemporaria, setTipoMensagemTemporaria] = useState<number>(1);
+  const [nomeError, setNomeError] = useState<string | null>(null);
+  const [descricaoError, setDescricaoError] = useState<string | null>(null);
+
+  function consultarTipoMensagem(id: number) {
+    switch (id) {
+      case 1:
+        return "Cupom";
+      case 2:
+        return "Informação";
+      case 3:
+        return "Tratamentos";
+      case 4:
+        return "Sobre mim";
+      case 5:
+        return "Sobre Vitória Garavazzo Estética Avancada";
+      default:
+        break;
+    }
+  }
 
   const handleClickCadastro = () => {
+
+    setNomeError(nome ? null : "Nome é obrigatório!");
+    setDescricaoError(descricao ? null : "Descrição é obrigatória!");
+
     const filter = {
       nome,
       descricao,
-      campo: habilitado,
+      habilitado: habilitado.toString(),
+      tipoMensagemTemporaria: tipoMensagemTemporaria
     }
+
+    console.log(filter)
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
 
-    axios.post(apiUrl, filter)
-      .then((response) => {
-        setRefresh(!refresh)
-        limpar();
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.error('Erro ao cadastrar mensagem:', error);
-      });
-
+    if (nome && descricao) {
+      axios.post(apiUrl, filter)
+        .then((response) => {
+          setRefresh(!refresh)
+          limpar();
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error('Erro ao cadastrar mensagem:', error);
+        });
+    }
   };
 
   const handleClickAlterar = () => {
+
+    setNomeError(nome ? null : "Nome é obrigatório!");
+    setDescricaoError(descricao ? null : "Descrição é obrigatória!");
+
     const filter = {
       nome,
       descricao,
       tipoMensagemTemporaria,
+      habilitado: habilitado.toString(),
     }
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${row}`;
 
-    axios.put(apiUrl, filter)
-      .then((_response) => {
-        console.log('Mensagem alterada com sucesso!');
-        setRefresh(!refresh);
-        setAlterar(false);
-        limpar();
-      })
-      .catch((error) => {
-        console.error('Erro ao alterar mensagem:', error);
-      });
+    if (nome && descricao) {
+      axios.put(apiUrl, filter)
+        .then((_response) => {
+          console.log('Mensagem alterada com sucesso!');
+          setRefresh(!refresh);
+          setAlterar(false);
+          limpar();
+        })
+        .catch((error) => {
+          console.error('Erro ao alterar mensagem:', error);
+        });
+    }
   };
 
   const run = () => {
@@ -71,6 +105,8 @@ const CadastroMensagem: React.FC = () => {
             Nome: item.nome,
             id: item.id,
             Descrição: item.descricao,
+            "Tipo de Mensagem": consultarTipoMensagem(item.tipoMensagemTemporaria),
+            Habilitado: item.habilitado,
           };
         });
 
@@ -84,6 +120,7 @@ const CadastroMensagem: React.FC = () => {
   function limpar() {
     setNome('');
     setDescricao('');
+    setHabilitado(false);
   }
 
   const handleDelete = (index: number) => {
@@ -117,7 +154,9 @@ const CadastroMensagem: React.FC = () => {
     axios.get(apiUrl)
       .then((response) => {
         setNome(response.data.nome);
+        setTipoMensagemTemporaria(response.data.tipoMensagemTemporaria);
         setDescricao(response.data.descricao);
+        setHabilitado(JSON.parse(response.data.habilitado));
       })
       .catch((error) => {
         console.error('Erro ao buscar mensagem:', error);
@@ -142,6 +181,7 @@ const CadastroMensagem: React.FC = () => {
         <h2>Cadastro de Mensagem</h2>
         <div className={styles.formGroup}>
           <label>Nome:</label>
+          {nomeError && <span className={styles.errorText}>{nomeError}</span>}
           <input
             type="text"
             value={nome}
@@ -150,6 +190,7 @@ const CadastroMensagem: React.FC = () => {
         </div>
         <div className={styles.formGroup}>
           <label>Descrição:</label>
+          {descricaoError && <span className={styles.errorText}>{descricaoError}</span>}
           <input
             type="text"
             value={descricao}

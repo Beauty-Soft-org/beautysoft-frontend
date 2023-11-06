@@ -34,6 +34,16 @@
   }
 }
 
+.errorText {
+  color: red;
+  font-size: 12px;
+  display: flex;
+  margin-top: -5px;
+  margin-bottom: 1.5px;
+  margin-left: 1.3px;
+}
+
+
 h2 {
   font-size: 1.5rem;
   margin-bottom: 20px;
