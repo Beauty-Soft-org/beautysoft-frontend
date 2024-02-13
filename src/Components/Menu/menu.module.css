@@ -20,9 +20,9 @@
       color: rgb(27, 20, 100);
     }
 
-    .Link {
+    .link {
       text-decoration: none;
-      color: rgb(27, 20, 100);
+      color: black;
     }
   }
 
@@ -58,7 +58,7 @@
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    width: 10.05rem;
+    width: 13.3rem;
 
     .dropdownLinkProcedimentos {
       text-decoration: none;

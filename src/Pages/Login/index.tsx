@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styles from './login.module.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Config from '../../Config.json';
+import { Navigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,18 +11,25 @@ const Login: React.FC = () => {
   const [data, setData] = useState<any>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleLogin = () => {
 
-    setEmailError(password ? null : "Email é obrigatório!");
-    setPasswordError(email ? null : "Senha é obrigatória!");
+    setEmailError(email ? null : "Email é obrigatório!");
+    setPasswordError(password ? null : "Senha é obrigatória!");
 
-    const apiUrl = `${Config.baseUrl}/Users/Details/5`;
-    axios.get(apiUrl)
+    const apiUrl = `${Config.baseUrl}/api/Usuarios/login`;
+
+    const params = { enderecoEmail: email, senha: password }
+
+    axios.post(apiUrl, params)
       .then((response) => {
         setData(response.data);
+        localStorage.setItem('status', response.data.status === "" ? 'Usuario' : response.data.status);
+        navigate('/');
       })
       .catch((error) => {
+        alert('Erro ao fazer login.');
         console.error('Erro ao fazer login:', error);
       });
   };

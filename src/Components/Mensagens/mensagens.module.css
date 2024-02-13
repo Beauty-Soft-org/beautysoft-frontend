@@ -1,38 +1,42 @@
 .imageContainer {
   position: relative;
   display: inline-block;
+  position: relative;
 }
 
 .imageContainer img {
-  width: 100%;
-  height: auto;
   box-shadow: rgba(99, 99, 99, 0.2) 2px 6px 6px 2px;
+  object-fit: cover;
 }
 
 .textOverlay {
   flex-direction: column;
   box-shadow: rgba(99, 99, 99, 0.2) 2px 6px 6px 2px;
   background-color: white;
-  width: 18.14rem;
+  width: 100%;
   position: absolute;
-  top: 16rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 90%;
+  left: 4%;
+  text-align: center;
+  padding: 1rem;
   font-weight: bold;
   color: #1B1464;
   font-family: 'Courier New', Courier, monospace;
-  overflow-y: auto;
+  overflow: auto;
+  min-height: 10rem;
+  max-height: 100%;
 }
 
 .textOverlay p {
   font-size: 1rem !important;
-  width: 95% !important;
+  width: 100%;
   text-align: left;
-  max-height: 6.5rem;
+  overflow: auto;
 }
 
 .title {
   position: sticky;
-  top: 0rem;
+  top: 0;
+  width: 100%;
+  overflow: auto;
 }

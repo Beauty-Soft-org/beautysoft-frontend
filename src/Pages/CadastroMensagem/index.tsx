@@ -43,20 +43,17 @@ const CadastroMensagem: React.FC = () => {
     const filter = {
       nome,
       descricao,
-      habilitado: habilitado.toString(),
+      habilitado,
       tipoMensagemTemporaria: tipoMensagemTemporaria
     }
-
-    console.log(filter)
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
 
     if (nome && descricao) {
       axios.post(apiUrl, filter)
-        .then((response) => {
+        .then(() => {
           setRefresh(!refresh)
           limpar();
-          console.log(response.data)
         })
         .catch((error) => {
           console.error('Erro ao cadastrar mensagem:', error);
@@ -73,7 +70,7 @@ const CadastroMensagem: React.FC = () => {
       nome,
       descricao,
       tipoMensagemTemporaria,
-      habilitado: habilitado.toString(),
+      habilitado: habilitado,
     }
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${row}`;
@@ -81,7 +78,6 @@ const CadastroMensagem: React.FC = () => {
     if (nome && descricao) {
       axios.put(apiUrl, filter)
         .then((_response) => {
-          console.log('Mensagem alterada com sucesso!');
           setRefresh(!refresh);
           setAlterar(false);
           limpar();
@@ -100,13 +96,12 @@ const CadastroMensagem: React.FC = () => {
         console.log('Mensagens exibidas com sucesso!');
         const modifiedData = response.data.map((item: any) => {
 
-          console.log(response)
           return {
             Nome: item.nome,
             id: item.id,
             Descrição: item.descricao,
             "Tipo de Mensagem": consultarTipoMensagem(item.tipoMensagemTemporaria),
-            Habilitado: item.habilitado,
+            Habilitado: item.habilitado.toString(),
           };
         });
 
@@ -120,7 +115,7 @@ const CadastroMensagem: React.FC = () => {
   function limpar() {
     setNome('');
     setDescricao('');
-    setHabilitado(false);
+    setHabilitado(true);
   }
 
   const handleDelete = (index: number) => {
@@ -183,6 +178,7 @@ const CadastroMensagem: React.FC = () => {
           <label>Nome:</label>
           {nomeError && <span className={styles.errorText}>{nomeError}</span>}
           <input
+            className={styles.input}
             type="text"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
@@ -192,6 +188,7 @@ const CadastroMensagem: React.FC = () => {
           <label>Descrição:</label>
           {descricaoError && <span className={styles.errorText}>{descricaoError}</span>}
           <input
+            className={styles.input}
             type="text"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}

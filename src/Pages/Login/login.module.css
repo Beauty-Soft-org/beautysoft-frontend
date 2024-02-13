@@ -48,7 +48,7 @@ input {
 }
 
 .loginButton {
-  background-color: #1877f2;
+  background-color: #58538B;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -61,11 +61,11 @@ input {
 
 .loginButton:hover,
 .voltarButton:hover {
-  background-color: #1565c0;
+  background-color: #746EB8;
 }
 
 .voltarButton {
-  background-color: #1877f2;
+  background-color: #58538B;
   border: none;
   border-radius: 4px;
   padding: 10px 15px;
@@ -76,6 +76,11 @@ input {
   width: 100%;
   color: #fff;
   text-decoration: none;
+
+  &:hover {
+    background-color: #746EB8;
+    transition: 1.5s;
+  }
 }
 
 @media (max-width: 768px) {

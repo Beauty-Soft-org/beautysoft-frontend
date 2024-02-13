@@ -9,6 +9,7 @@ import Config from '../../Config.json';
 const Procedimentos: React.FC = () => {
   const [nome, setNome] = useState<string>('');
   const [valor, setValor] = useState<string>('');
+  const [tempo, setTempo] = useState<string>('');
   const [descricao, setDescricao] = useState<string>('');
   const [tipoProcedimento, setTipoProcedimento] = useState<number>(1);
   const [imagem, setImagem] = useState<File | null>(null);
@@ -16,6 +17,7 @@ const Procedimentos: React.FC = () => {
   const [alterar, setAlterar] = useState<boolean>(false);
   const [row, setRow] = useState<number>();
   const [nomeError, setNomeError] = useState<string | null>(null);
+  const [tempoError, setTempoError] = useState<string | null>(null);
   const [descricaoError, setDescricaoError] = useState<string | null>(null);
   const [valorError, setValorError] = useState<string | null>(null);
   const [habilitado, setHabilitado] = useState<boolean>(true);
@@ -36,12 +38,14 @@ const Procedimentos: React.FC = () => {
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
     setValorError(valor ? null : "Valor é obrigatório!");
+    setTempoError(tempo ? null : "Tempo é obrigatório!");
 
     const filter = {
       nome,
       descricao,
       valor,
-      inserirArquivo: 'Temporária',
+      tempo,
+      imagem: imagem?.name?.toString(),
       tipoProcedimento,
     }
 
@@ -51,7 +55,6 @@ const Procedimentos: React.FC = () => {
       .then((_response) => {
         setRefresh(!refresh)
         limpar();
-        console.log('Procedimento cadastrado com sucesso!');
       })
       .catch((error) => {
         console.error('Erro ao cadastrar procedimento:', error);
@@ -63,12 +66,14 @@ const Procedimentos: React.FC = () => {
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
     setValorError(valor ? null : "Valor é obrigatório!");
+    setTempoError(tempo ? null : "Tempo é obrigatório!");
 
     const filter = {
       nome,
       descricao,
       valor,
-      inserirArquivo: 'Temporária',
+      tempo,
+      imagem: imagem?.name?.toString() || imagem,
       tipoProcedimento,
     }
 
@@ -76,7 +81,6 @@ const Procedimentos: React.FC = () => {
 
     axios.put(apiUrl, filter)
       .then((_response) => {
-        console.log('Procedimento alterado com sucesso!');
         setRefresh(!refresh);
         setAlterar(false);
         limpar();
@@ -90,6 +94,7 @@ const Procedimentos: React.FC = () => {
     setNome('');
     setDescricao('');
     setValor('');
+    setTempo('');
     setTipoProcedimento(1);
     setImagem(null);
   }
@@ -99,15 +104,15 @@ const Procedimentos: React.FC = () => {
 
     axios.get(apiUrl)
       .then((response) => {
-        console.log('Procedimentos exibidos com sucesso!');
         const modifiedData = response.data.map((item: any) => {
           return {
             Nome: item.nome,
             id: item.id,
             Descrição: item.descricao,
             "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
-            Imagem: item.inserirArquivo,
+            Imagem: item.imagem,
             Valor: ` R$ ${item.valor}`,
+            Tempo: item.tempo,
           };
         });
 
@@ -127,7 +132,6 @@ const Procedimentos: React.FC = () => {
       axios.delete(apiUrl)
         .then((_response) => {
           setRefresh(!refresh);
-          console.log('Procedimento deletado com sucesso!');
         })
         .catch((error) => {
           console.error('Erro ao deletar procedimento:', error);
@@ -141,19 +145,18 @@ const Procedimentos: React.FC = () => {
 
     const apiUrl = `${Config.baseUrl}/api/Procedimento/${index}`;
 
-    if (nome && descricao && valor) {
-      axios.get(apiUrl)
-        .then((response) => {
-          setNome(response.data.nome);
-          setDescricao(response.data.descricao);
-          setValor(response.data.valor);
-          setTipoProcedimento(response.data.tipoProcedimento);
-          setImagem(response.data.inserirArquivo);
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar procedimento:', error);
-        });
-    }
+    axios.get(apiUrl)
+      .then((response) => {
+        setNome(response.data.nome);
+        setDescricao(response.data.descricao);
+        setValor(response.data.valor);
+        setTempo(response.data.tempo);
+        setTipoProcedimento(response.data.tipoProcedimento);
+        setImagem(response.data.imagem);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar procedimento:', error);
+      });
   };
 
   function voltarCadastro() {
@@ -201,6 +204,15 @@ const Procedimentos: React.FC = () => {
             type="number"
             value={valor}
             onChange={(e) => setValor(e.target.value)}
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Tempo:</label>
+          {tempoError && <span className={styles.errorText}>{tempoError}</span>}
+          <input
+            type="time"
+            value={tempo}
+            onChange={(e) => setTempo(e.target.value)}
           />
         </div>
         <div className={styles.formGroup}>

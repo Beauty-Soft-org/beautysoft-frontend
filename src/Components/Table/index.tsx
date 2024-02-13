@@ -20,20 +20,20 @@ const Table: React.FC<TableProps> = ({ data, onDelete, onEdit }) => {
     <div className={styles.tableContainer}>
       <table className={styles.table}>
         <thead>
-          <tr>
+          <tr className={styles.tr}>
             {filteredColumns.map((column) => (
-              <th key={column}>{column}</th>
+              <th key={column} className={styles.th}>{column}</th>
             ))}
-            <th>Ações</th>
+            <th className={styles.th}>Ações</th>
           </tr>
         </thead>
         <tbody>
           {data.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className={styles.tr}>
               {filteredColumns.map((column) => (
-                <td key={column}>{row[column]}</td>
+                <td className={styles.td} key={column}>{row[column]}</td>
               ))}
-              <td>
+              <td className={styles.td}>
                 <button onClick={() => onDelete(row.id)}>Deletar</button>
                 <button className={styles.buttonEdit} onClick={() => onEdit(row.id)}>Editar</button>
               </td>

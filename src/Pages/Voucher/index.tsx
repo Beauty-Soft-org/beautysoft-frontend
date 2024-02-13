@@ -35,7 +35,6 @@ const Voucher: React.FC = () => {
         .then((response) => {
           setRefresh(!refresh)
           limpar();
-          console.log(response.data)
         })
         .catch((error) => {
           console.error('Erro ao cadastrar voucher:', error);
@@ -51,6 +50,7 @@ const Voucher: React.FC = () => {
     const filter = {
       nome,
       descricao,
+      campo: habilitado
     }
 
     const apiUrl = `${Config.baseUrl}/api/Voucher/${row}`;
@@ -74,14 +74,15 @@ const Voucher: React.FC = () => {
       .then((response) => {
         console.log('Vouchers exibidos com sucesso!');
         const modifiedData = response.data.map((item: any) => {
-
-          console.log(response)
           return {
             Nome: item.nome,
             id: item.id,
             Descrição: item.descricao,
+            Habilitado: item.campo.toString(),
           };
         });
+
+        console.log('modifiedData', modifiedData)
 
         setData(modifiedData);
       })
@@ -93,6 +94,7 @@ const Voucher: React.FC = () => {
   function limpar() {
     setNome('');
     setDescricao('');
+    setHabilitado(true);
   }
 
   const handleDelete = (index: number) => {
@@ -127,6 +129,7 @@ const Voucher: React.FC = () => {
       .then((response) => {
         setNome(response.data.nome);
         setDescricao(response.data.descricao);
+        setHabilitado(response.data.campo);
       })
       .catch((error) => {
         console.error('Erro ao buscar voucher:', error);
