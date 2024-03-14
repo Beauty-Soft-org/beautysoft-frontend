@@ -3,7 +3,6 @@ import styles from './login.module.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Config from '../../Config.json';
-import { Navigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -26,6 +25,7 @@ const Login: React.FC = () => {
       .then((response) => {
         setData(response.data);
         localStorage.setItem('status', response.data.status === "" ? 'Usuario' : response.data.status);
+        localStorage.setItem('email', response.data.email)
         navigate('/');
       })
       .catch((error) => {

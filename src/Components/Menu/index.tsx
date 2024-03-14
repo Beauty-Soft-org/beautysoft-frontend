@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./menu.module.css";
 import { FiChevronDown } from 'react-icons/fi';
 import { FaUserCircle } from "react-icons/fa";
@@ -16,7 +16,15 @@ function Menu() {
     setDropdownMore(!dropdownMore);
   }
 
+  const navigate = useNavigate();
+
   const status = localStorage.getItem('status');
+
+  function sair() {
+    navigate('/')
+    localStorage.clear();
+  }
+
 
   console.log('status', status)
 
@@ -48,15 +56,18 @@ function Menu() {
         <h4>Estética Avançada</h4>
       </div>
       <div className={`${styles.menuLogin} ${dropdownIcon ? styles.open : ''}`}>
-        <div><FaUserCircle style={{ fontSize: '2.2rem' }} /></div>
+        <Link to="/perfil" className={styles.iconPerfil}><FaUserCircle style={{ fontSize: '2.2rem' }} /></Link>
         <div className={styles.dropdown}>
           <FiChevronDown className={styles.iconButton} style={{ fontSize: '2rem' }} onClick={toggleDropdownIcon} />
-          {dropdownIcon && (
+          {dropdownIcon && localStorage.getItem('email') === null ? (
             <div className={styles.dropdownContent}>
               <Link to="/login" className={styles.dropdownLinkA}>Login</Link>
               <Link to="/register" className={styles.dropdownLinkB}>Register</Link>
             </div>
-          )}
+          ) : dropdownIcon &&
+          <div className={styles.dropdownContent}>
+            <div onClick={() => sair()} className={styles.dropdownLinkA}>Sair</div>
+          </div>}
         </div>
       </div>
     </div>

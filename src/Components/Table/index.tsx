@@ -7,8 +7,8 @@ interface TableRow {
 
 interface TableProps {
   data: TableRow[];
-  onDelete: (id: number) => void;
-  onEdit: (id: number) => void;
+  onDelete?: (id: number) => void;
+  onEdit?: (id: number) => void;
 }
 
 const Table: React.FC<TableProps> = ({ data, onDelete, onEdit }) => {
@@ -24,19 +24,23 @@ const Table: React.FC<TableProps> = ({ data, onDelete, onEdit }) => {
             {filteredColumns.map((column) => (
               <th key={column} className={styles.th}>{column}</th>
             ))}
-            <th className={styles.th}>Ações</th>
+            {(onDelete || onEdit) &&
+              <th className={styles.th}>Ações</th>
+            }
           </tr>
         </thead>
         <tbody>
-          {data.map((row) => (
-            <tr key={row.id} className={styles.tr}>
-              {filteredColumns.map((column) => (
-                <td className={styles.td} key={column}>{row[column]}</td>
+          {data.map((row, rowIndex) => (
+            <tr key={rowIndex} className={styles.tr}>
+              {filteredColumns.map((column, colIndex) => (
+                <td className={styles.td} key={colIndex}>{row[column]}</td>
               ))}
-              <td className={styles.td}>
-                <button onClick={() => onDelete(row.id)}>Deletar</button>
-                <button className={styles.buttonEdit} onClick={() => onEdit(row.id)}>Editar</button>
-              </td>
+              {(onDelete || onEdit) &&
+                <td className={styles.td}>
+                  {onDelete && <button onClick={() => onDelete(row.id)}>Deletar</button>}
+                  {onEdit && <button className={styles.buttonEdit} onClick={() => onEdit(row.id)}>Editar</button>}
+                </td>
+              }
             </tr>
           ))}
         </tbody>

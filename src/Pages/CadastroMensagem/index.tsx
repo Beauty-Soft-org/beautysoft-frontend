@@ -29,7 +29,7 @@ const CadastroMensagem: React.FC = () => {
       case 4:
         return "Sobre mim";
       case 5:
-        return "Sobre Vitória Garavazzo Estética Avancada";
+        return "Sobre Vitória Garavazzo Estética Avançada";
       default:
         break;
     }
@@ -219,7 +219,7 @@ const CadastroMensagem: React.FC = () => {
             <option className={styles.option} value="2">Informação</option>
             <option className={styles.option} value="3">Tratamentos</option>
             <option className={styles.option} value="4">Sobre mim</option>
-            <option className={styles.option} value="5">Sobre Vitória Garavazzo Estética Avancada</option>
+            <option className={styles.option} value="5">Sobre Vitória Garavazzo Estética Avançada</option>
           </select>
         </div>
         <div className={styles.formGroup}>

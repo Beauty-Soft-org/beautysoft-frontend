@@ -43,10 +43,15 @@ const Agendamento: React.FC = () => {
       dataHoraAgendada.setUTCHours(parseInt(horarioState.split(':')[0], 10));
       dataHoraAgendada.setUTCMinutes(parseInt(horarioState.split(':')[1], 10));
 
+      const email = localStorage.getItem('email');
+
+      console.log('email', email)
+
       const params = {
         dataHoraAgendada: dataHoraAgendada.toISOString(),
         nome: informacoes.nome,
         descricao: informacoes.descricao,
+        email,
         tempo: informacoes.tempo,
         valor: informacoes.valor.toString(),
         tipoProcedimento: informacoes.tipoProcedimento,

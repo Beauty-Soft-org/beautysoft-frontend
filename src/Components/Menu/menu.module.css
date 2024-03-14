@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .menu {
     display: flex;
@@ -48,6 +49,11 @@
     width: 25%;
     padding-left: 4rem;
     color: rgb(27, 20, 100);
+  }
+
+  .iconPerfil {
+    text-decoration: none;
+    color: black;
   }
 
   .dropdownMoreContent {
@@ -100,6 +106,7 @@
 
   .dropdownLinkA {
     padding-top: .2rem;
+    padding-bottom: .3rem;
   }
 
   .dropdownLinkB {
@@ -109,6 +116,7 @@
   .dropdownLinkA:hover,
   .dropdownLinkB:hover {
     color: blue;
+    cursor: pointer;
   }
 
   .dropdownContent {

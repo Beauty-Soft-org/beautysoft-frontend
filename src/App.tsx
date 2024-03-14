@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login'
@@ -6,15 +6,16 @@ import Home from './Pages/Home';
 import Procedimentos from './Pages/Procedimentos';
 import Voucher from './Pages/Voucher';
 import Register from './Pages/Register';
+import Perfil from './Pages/Perfil';
 import CadastroMensagem from './Pages/CadastroMensagem';
 import Sobre from './Components/Sobre';
 import Servicos from './Pages/Servicos';
 import VisualizarAgendamentos from './Pages/VisualizarAgendamentos';
 import Agendamento from './Pages/Agendamento';
-import { PrimeReactProvider } from 'primereact/api'; 
-
+import { PrimeReactProvider } from 'primereact/api';
 
 function App() {
+
 
   const status = localStorage.getItem('status');
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/servicos" element={(status === 'Usuario' || status === 'Admin') ? <Servicos /> : <Home />} />
           <Route path="/agendamentos" element={(status === 'Usuario' || status === 'Admin') ? <Agendamento /> : <Home />} />
+          <Route path="/perfil" element={(status !== null ? <Perfil /> : <Register />)} />
         </Routes>
       </BrowserRouter>
     </PrimeReactProvider>
