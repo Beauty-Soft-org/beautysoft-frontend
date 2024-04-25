@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia';
 import Config from '../../Config.json';
+import Modal from 'react-modal';
 
 const Procedimentos: React.FC = () => {
   const [nome, setNome] = useState<string>('');
@@ -22,6 +23,8 @@ const Procedimentos: React.FC = () => {
   const [valorError, setValorError] = useState<string | null>(null);
   const [habilitado, setHabilitado] = useState<boolean>(true);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [deletingIndex, setDeletingIndex] = useState<number>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -123,21 +126,20 @@ const Procedimentos: React.FC = () => {
       });
   };
 
-  const handleDelete = (index: number) => {
-    const confirmDelete = window.confirm('Tem certeza de que deseja excluir este procedimento?');
-
-    if (confirmDelete) {
-      const apiUrl = `${Config.baseUrl}/api/Procedimento/${index}`;
+  const handleDelete = () => {
+    if (deletingIndex !== undefined) {
+      const apiUrl = `${Config.baseUrl}/api/Procedimento/${deletingIndex}`;
 
       axios.delete(apiUrl)
         .then((_response) => {
           setRefresh(!refresh);
+          setIsModalOpen(false);
         })
         .catch((error) => {
           console.error('Erro ao deletar procedimento:', error);
         });
     }
-  };
+  }
 
   const handleEdit = (index: number) => {
     setAlterar(true);
@@ -169,11 +171,32 @@ const Procedimentos: React.FC = () => {
   return (
     <div className={styles.cadastroContainer}>
       <div className={styles.visualizarBox}>
+        <Modal
+          className={styles.modal}
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          contentLabel="Confirmação de Exclusão"
+        >
+          <h2>Tem certeza de que deseja excluir este procedimento?</h2>
+          <div className={styles.contentButtonsModal}>
+            <button onClick={handleDelete}>Confirmar</button>
+            <button style={{ marginLeft: '1rem' }} onClick={() => setIsModalOpen(false)}>Cancelar</button>
+          </div>
+        </Modal>
         {data.length === 0 ? <span className={styles.titleVisualizar}>Sem procedimentos para serem exibidos</span> :
           <div>
             <span className={styles.titleVisualizar}>{data.length === 1 ? 'Procedimento' : 'Procedimentos'}</span>
             <div className={styles.contentTable}>
-              <Table data={data} onDelete={handleDelete} onEdit={handleEdit} />
+              <div className={styles.contentTable}>
+                <Table
+                  data={data}
+                  onDelete={(index: number) => {
+                    setDeletingIndex(index);
+                    setIsModalOpen(true);
+                  }}
+                  onEdit={handleEdit}
+                />
+              </div>
             </div>
           </div>
         }

@@ -46,3 +46,31 @@ li {
   margin-bottom: .1rem;
   align-items: center;
 }
+
+@media (max-width: 768px) {
+
+  .footer {
+    background-color: #DC2244;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+  }
+  
+  .containerContato {
+    text-align: left;
+    margin-left: 1rem;
+    font-size: .9rem;
+  }
+
+  .containerRedesSociais {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: .9rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+}

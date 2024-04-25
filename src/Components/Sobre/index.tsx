@@ -35,6 +35,7 @@ function Sobre() {
       </div>
       <div className={styles.frame}>
         <iframe
+          className={styles.frame1}
           width="560"
           height="315"
           src="https://www.youtube.com/embed/1B7dm5hE4mQ"
@@ -43,7 +44,24 @@ function Sobre() {
         />
         <iframe
           style={{ marginLeft: '10rem' }}
+          className={styles.frame2}
           width="560"
+          height="315"
+          src="https://www.youtube.com/embed/S-j8nShmNoQ"
+          title="YouTube Video Player"
+          allowFullScreen
+        />
+        <iframe
+          className={styles.frame3}
+          width="100%"
+          height="315"
+          src="https://www.youtube.com/embed/1B7dm5hE4mQ"
+          title="YouTube Video Player"
+          allowFullScreen
+        />
+        <iframe
+          className={styles.frame4}
+          width="100%"
           height="315"
           src="https://www.youtube.com/embed/S-j8nShmNoQ"
           title="YouTube Video Player"

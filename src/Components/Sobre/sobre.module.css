@@ -8,7 +8,7 @@
     font-weight: 500;
     font-size: 4rem;
     margin-bottom: 3rem;
-    font-family: serif;
+    font-family: cursive;
     text-align: center;
     padding-top: 10rem;
   }
@@ -26,4 +26,28 @@
   margin-top: 2rem;
   margin-bottom: 1.8rem;
   text-align: center;
+}
+
+.frame3,
+.frame4 {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .frame1,
+  .frame2 {
+    display: none;
+  }
+
+  .frame3,
+  .frame4 {
+    display: flex !important;
+  }
+
+  .textSobre {
+    background-color: white !important;
+    color: #1B1464 !important;
+    width: 80% !important;
+  }
 }

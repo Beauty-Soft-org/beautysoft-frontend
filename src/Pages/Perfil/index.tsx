@@ -21,8 +21,9 @@ function Perfil() {
     uf: "",
     municipio: "",
     bairro: "",
-    rua: "",
+    logradouro: "",
     numero: undefined,
+    complemento: "",
   });
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -32,10 +33,12 @@ function Perfil() {
   async function run() {
     try {
 
+      console.log('email', localStorage.getItem('email'))
+
       if (localStorage.getItem('status') === null) {
         navigate('/register');
       }
-
+      console.log('dataPerfil', dataPerfil)
       const getPerfilUsuario = await axios.get(`${Config.baseUrl}/api/PerfilUsuario/${dataPerfil.email}`);
 
       const dataNascimentoFormatada = new Date(getPerfilUsuario.data.dataNascimento).toISOString().split('T')[0];
@@ -51,11 +54,12 @@ function Perfil() {
         uf: getPerfilUsuario.data.uf,
         municipio: getPerfilUsuario.data.municipio,
         bairro: getPerfilUsuario.data.bairro,
-        rua: getPerfilUsuario.data.rua,
+        logradouro: getPerfilUsuario.data.logradouro,
         numero: getPerfilUsuario.data.numeroCasa,
+        complemento: getPerfilUsuario.data.complemento,
       }));
 
-      run2(); // Chama a função para buscar agendamentos após obter o perfil do usuário
+      run2();
     } catch (error: any) {
       if (error.response?.status === 404) {
         console.log('Perfil de usuário não encontrado');
@@ -77,8 +81,9 @@ function Perfil() {
         uf: dataPerfil.uf,
         municipio: dataPerfil.municipio,
         bairro: dataPerfil.bairro,
-        rua: dataPerfil.rua,
-        numeroCasa: dataPerfil.numero
+        logradouro: dataPerfil.logradouro,
+        numeroCasa: dataPerfil.numero,
+        complemento: dataPerfil.complemento
       };
 
       let perfilUsuarioEmail: any;
@@ -157,7 +162,7 @@ function Perfil() {
             uf: data.uf,
             municipio: data.localidade,
             bairro: data.bairro,
-            rua: data.logradouro,
+            logradouro: data.logradouro,
           });
         })
         .catch(error => console.error(error));
@@ -290,17 +295,27 @@ function Perfil() {
                   />
                 </div>
                 <div className={styles.groupLogradouro}>
-                  <div className={styles.itemGroup} style={{ width: '80%' }}>
-                    <label htmlFor="rua">Rua:</label>
+                  <div className={styles.itemGroupNumero} style={{ width: '80%' }}>
+                    <label htmlFor="logradouro">Logradouro:</label>
                     <input
                       type="text"
-                      id="rua"
-                      name="rua"
-                      value={dataPerfil.rua}
-                      onChange={(e) => setDataPerfil({ ...dataPerfil, rua: e.target.value })}
+                      id="logradouro"
+                      name="logradouro"
+                      value={dataPerfil.logradouro}
+                      onChange={(e) => setDataPerfil({ ...dataPerfil, logradouro: e.target.value })}
                     />
                   </div>
-                  <div className={styles.itemGroup} style={{ width: '15%' }}>
+                  <div className={styles.itemGroupNumero2} style={{ width: '100%' }}>
+                    <label htmlFor="logradouro">Logradouro:</label>
+                    <input
+                      type="text"
+                      id="logradouro"
+                      name="logradouro"
+                      value={dataPerfil.logradouro}
+                      onChange={(e) => setDataPerfil({ ...dataPerfil, logradouro: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.itemGroupNumero} style={{ width: '15%' }}>
                     <label htmlFor="numero">Número:</label>
                     <input
                       style={{ width: '20%' }}
@@ -311,6 +326,29 @@ function Perfil() {
                       onChange={(e) => setDataPerfil({ ...dataPerfil, numero: e.target.value })}
                     />
                   </div>
+                </div>
+              </div>
+              <div className={styles.perfilGroup}>
+                <div className={styles.itemGroupNumero2} style={{ width: '50%' }}>
+                  <label htmlFor="numero">Número:</label>
+                  <input
+                    style={{ width: '50%' }}
+                    type="number"
+                    id="numero"
+                    name="numero"
+                    value={dataPerfil.numero}
+                    onChange={(e) => setDataPerfil({ ...dataPerfil, numero: e.target.value })}
+                  />
+                </div>
+                <div className={styles.itemGroup} style={{ width: '50%' }}>
+                  <label htmlFor="complemento">Complemento:</label>
+                  <input
+                    type="text"
+                    id="complemento"
+                    name="complemento"
+                    value={dataPerfil.complemento}
+                    onChange={(e) => setDataPerfil({ ...dataPerfil, complemento: e.target.value })}
+                  />
                 </div>
               </div>
               <div className={styles.buttons}>

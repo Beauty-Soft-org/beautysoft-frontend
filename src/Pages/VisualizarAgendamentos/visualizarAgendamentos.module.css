@@ -87,7 +87,8 @@ select {
 }
 
 .cadastroButton {
-  background-color: #58538B;;
+  background-color: #58538B;
+  ;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -100,11 +101,13 @@ select {
 
 .cadastroButton:hover,
 .voltarButton:hover {
-  background-color: #746EB8;;
+  background-color: #746EB8;
+  ;
 }
 
 .voltarButton {
-  background-color: #58538B;;
+  background-color: #58538B;
+  ;
   border: none;
   border-radius: 4px;
   padding: 10px 15px;
@@ -115,6 +118,44 @@ select {
   width: 100%;
   color: #fff;
   text-decoration: none;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 30%;
+  margin: auto;
+  box-shadow: 0 0 .4rem .1rem rgba(0, 0, 0, 0.1);
+  margin-top: 10rem;
+  min-width: 20rem;
+}
+
+.modal h2 {
+  font-family: cursive;
+  font-size: 1.2rem;
+  color: #58538B;
+  margin-top: .3rem !important;
+}
+
+.contentButtonsModal {
+  text-align: center;
+  width: 100%;
+}
+
+.modal button {
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  background-color: #58538B;
+}
+
+.modal button:hover {
+  opacity: 0.9;
 }
 
 @media (max-width: 768px) {

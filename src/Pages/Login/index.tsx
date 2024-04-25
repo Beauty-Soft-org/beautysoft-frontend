@@ -3,6 +3,7 @@ import styles from './login.module.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Config from '../../Config.json';
+import Modal from 'react-modal';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const Login: React.FC = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleLogin = () => {
 
@@ -29,7 +31,7 @@ const Login: React.FC = () => {
         navigate('/');
       })
       .catch((error) => {
-        alert('Erro ao fazer login.');
+        setIsModalOpen(true);
         console.error('Erro ao fazer login:', error);
       });
   };
@@ -38,6 +40,17 @@ const Login: React.FC = () => {
     <div>
       <div className={styles.loginContainer}>
         <div className={styles.loginBox}>
+          <Modal
+            className={styles.modal}
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            contentLabel="Confirmação de Exclusão"
+          >
+            <h2>Erro ao fazer login, email ou senha incorretos!</h2>
+            <div className={styles.contentButtonsModal}>
+              <button onClick={() => setIsModalOpen(false)}>Confirmar</button>
+            </div>
+          </Modal>
           <h2>Login</h2>
           <div className={styles.formGroup}>
             <label>Email:</label>

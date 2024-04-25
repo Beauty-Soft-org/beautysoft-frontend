@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Config from '../../Config.json';
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +16,8 @@ const Register: React.FC = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [nomeUsuarioError, setNomeUsuarioError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [mensagemRegister, setMensagemRegister] = useState<string>();
 
   const navigate = useNavigate();
 
@@ -40,20 +43,38 @@ const Register: React.FC = () => {
       axios.post(apiUrl, params)
         .then((response) => {
           setData(response.data);
-          alert('Cadastro realizado com sucesso!');
-          navigate('/login');
+          setIsModalOpen(true);
+          setMensagemRegister('Cadastro realizado com sucesso!');
         })
         .catch((error) => {
           console.error('Erro ao fazer o registro:', error);
-          alert('Erro ao realizar o cadastro!');
+          setIsModalOpen(true);
+          setMensagemRegister('Erro ao realizar o cadastro!');
         });
     }
   };
+
+  function confirmRegister() {
+    if (mensagemRegister === 'Cadastro realizado com sucesso!') {
+      navigate('/login');
+    }
+    setIsModalOpen(false);
+  }
 
   return (
     <div>
       <div className={styles.registerContainer}>
         <div className={styles.registerBox}>
+          <Modal
+            className={styles.modal}
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+          >
+            <h2>{mensagemRegister}</h2>
+            <div className={styles.contentButtonsModal}>
+              <button onClick={() => confirmRegister()}>OK</button>
+            </div>
+          </Modal>
           <h2>Register</h2>
           <div className={styles.formGroup}>
             <label>Nome de Usuário:</label>

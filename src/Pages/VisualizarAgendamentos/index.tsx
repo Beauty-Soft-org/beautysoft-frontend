@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import Config from '../../Config.json';
+import Modal from 'react-modal';
 
 const VisualizarAgendamento: React.FC = () => {
   const [nome, setNome] = useState<string>('');
@@ -21,6 +22,8 @@ const VisualizarAgendamento: React.FC = () => {
   const [descricaoError, setDescricaoError] = useState<string | null>(null);
   const [valorError, setValorError] = useState<string | null>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [deletingIndex, setDeletingIndex] = useState<number>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleClickCadastro = () => {
 
@@ -125,21 +128,20 @@ const VisualizarAgendamento: React.FC = () => {
   };
 
 
-  const handleDelete = (index: number) => {
-    const confirmDelete = window.confirm('Tem certeza de que deseja excluir este agendamento?');
-
-    if (confirmDelete) {
-      const apiUrl = `${Config.baseUrl}/api/Agendamentos/${index}`;
+  const handleDelete = () => {
+    if (deletingIndex !== undefined) {
+      const apiUrl = `${Config.baseUrl}/api/Agendamentos/${deletingIndex}`;
 
       axios.delete(apiUrl)
         .then((_response) => {
           setRefresh(!refresh);
+          setIsModalOpen(false);
         })
         .catch((error) => {
           console.error('Erro ao deletar agendamento:', error);
         });
     }
-  };
+  }
 
   const handleEdit = (index: number) => {
     setAlterar(true);
@@ -172,7 +174,7 @@ const VisualizarAgendamento: React.FC = () => {
     const dia = (`0${data.getDate()}`).slice(-2);
     const horas = (`0${data.getHours()}`).slice(-2);
     const minutos = (`0${data.getMinutes()}`).slice(-2);
-  
+
     return `${ano}-${mes}-${dia}T${horas}:${minutos}`;
   };
 
@@ -181,11 +183,30 @@ const VisualizarAgendamento: React.FC = () => {
   return (
     <div className={styles.cadastroContainer}>
       <div className={styles.visualizarBox}>
+        <Modal
+          className={styles.modal}
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          contentLabel="Confirmação de Exclusão"
+        >
+          <h2>Tem certeza de que deseja excluir este agendamento?</h2>
+          <div className={styles.contentButtonsModal}>
+            <button onClick={handleDelete}>Confirmar</button>
+            <button style={{ marginLeft: '1rem' }} onClick={() => setIsModalOpen(false)}>Cancelar</button>
+          </div>
+        </Modal>
         {data.length === 0 ? <span className={styles.titleVisualizar}>Sem agendamentos para serem exibidos</span> :
           <div>
             <span className={styles.titleVisualizar}>{data.length === 1 ? 'Agendamento' : 'Agendamentos'}</span>
             <div className={styles.contentTable}>
-              <Table data={data} onDelete={handleDelete} onEdit={handleEdit} />
+              <Table
+                data={data}
+                onDelete={(index: number) => {
+                  setDeletingIndex(index);
+                  setIsModalOpen(true);
+                }}
+                onEdit={handleEdit}
+              />
             </div>
           </div>
         }

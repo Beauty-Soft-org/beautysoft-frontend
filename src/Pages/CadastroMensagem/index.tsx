@@ -5,6 +5,7 @@ import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia'
 import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import Config from '../../Config.json';
+import Modal from 'react-modal';
 
 const CadastroMensagem: React.FC = () => {
   const [nome, setNome] = useState<string>('');
@@ -17,6 +18,8 @@ const CadastroMensagem: React.FC = () => {
   const [tipoMensagemTemporaria, setTipoMensagemTemporaria] = useState<number>(1);
   const [nomeError, setNomeError] = useState<string | null>(null);
   const [descricaoError, setDescricaoError] = useState<string | null>(null);
+  const [deletingIndex, setDeletingIndex] = useState<number>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   function consultarTipoMensagem(id: number) {
     switch (id) {
@@ -118,22 +121,20 @@ const CadastroMensagem: React.FC = () => {
     setHabilitado(true);
   }
 
-  const handleDelete = (index: number) => {
-    const confirmDelete = window.confirm('Tem certeza de que deseja excluir esta mensagem?');
-
-    if (confirmDelete) {
-      const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${index}`;
+  const handleDelete = () => {
+    if (deletingIndex !== undefined) {
+      const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${deletingIndex}`;
 
       axios.delete(apiUrl)
         .then((_response) => {
           setRefresh(!refresh);
-          console.log('Mensagem deletada com sucesso!');
+          setIsModalOpen(false);
         })
         .catch((error) => {
           console.error('Erro ao deletar mensagem:', error);
         });
     }
-  };
+  }
 
   function voltarCadastro() {
     setAlterar(false);
@@ -163,11 +164,30 @@ const CadastroMensagem: React.FC = () => {
   return (
     <div className={styles.cadastroContainer}>
       <div className={styles.visualizarBox}>
+        <Modal
+          className={styles.modal}
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+          contentLabel="Confirmação de Exclusão"
+        >
+          <h2>Tem certeza de que deseja excluir esta mensagem?</h2>
+          <div className={styles.contentButtonsModal}>
+            <button onClick={handleDelete}>Confirmar</button>
+            <button style={{ marginLeft: '1rem' }} onClick={() => setIsModalOpen(false)}>Cancelar</button>
+          </div>
+        </Modal>
         {data.length === 0 ? <span className={styles.titleVisualizar}>Sem mensagens para serem exibidas</span> :
           <div>
             <span className={styles.titleVisualizar}>{data.length === 1 ? 'Mensagem' : 'Mensagens'}</span>
             <div className={styles.contentTable}>
-              <Table data={data} onDelete={handleDelete} onEdit={handleEdit} />
+              <Table
+                data={data}
+                onDelete={(index: number) => {
+                  setDeletingIndex(index);
+                  setIsModalOpen(true);
+                }}
+                onEdit={handleEdit}
+              />
             </div>
           </div>
         }
@@ -187,9 +207,7 @@ const CadastroMensagem: React.FC = () => {
         <div className={styles.formGroup}>
           <label>Descrição:</label>
           {descricaoError && <span className={styles.errorText}>{descricaoError}</span>}
-          <input
-            className={styles.input}
-            type="text"
+          <textarea
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
           />

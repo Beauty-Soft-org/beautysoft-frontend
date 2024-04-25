@@ -56,8 +56,25 @@ const Servicos: React.FC = () => {
     return groupedInfos;
   }
 
+  function groupArrayMedia(arr: Servico[]): ServicoGroup[] {
+    const groupedInfos: ServicoGroup[] = [];
+
+    // Divide a array em grupos de até 4
+    for (let i = 0; i < arr.length; i += 1) {
+      groupedInfos.push({
+        title: `Group ${i / 1 + 1}`,
+        servicos: arr.slice(i, i + 1),
+      });
+    }
+
+    return groupedInfos;
+  }
+
   const groupedInfosCorporal: ServicoGroup[] = infosCorporal ? groupArray(infosCorporal) : [];
   const groupedInfosFacial: ServicoGroup[] = infosFacial ? groupArray(infosFacial) : [];
+
+  const groupedInfosCorporalMedia: ServicoGroup[] = infosCorporal ? groupArrayMedia(infosCorporal) : [];
+  const groupedInfosFacialMedia: ServicoGroup[] = infosFacial ? groupArrayMedia(infosFacial) : [];
 
   const renderServicos = (groupedInfos: ServicoGroup[]) => (
     groupedInfos.map((group, index) => (
@@ -81,26 +98,31 @@ const Servicos: React.FC = () => {
   return (
     <div>
       <Menu />
-      <h1 className={styles.title}>Nossos Serviços</h1>
-      <div className={styles.contentOption}>
-        <button
-          style={{ marginLeft: '1.2rem' }}
-          className={`${styles.button} ${selectedButton === 'Corporal' ? styles.corporal : null}`}
-          onClick={() => handleClick('Corporal')}
-        >
-          Corporal
-        </button>
-        <button
-          style={{ paddingRight: '1.7rem' }}
-          className={`${styles.button} ${selectedButton === 'Facial' ? styles.facial : null}`}
-          onClick={() => handleClick('Facial')}
-        >
-          Facial
-        </button>
+      <div className={styles.boxServicos}>
+        <h1 className={styles.title}>Nossos Serviços</h1>
+        <div className={styles.contentOption}>
+          <button
+            style={{ marginLeft: '1.2rem' }}
+            className={`${styles.button} ${selectedButton === 'Corporal' ? styles.corporal : null}`}
+            onClick={() => handleClick('Corporal')}
+          >
+            Corporal
+          </button>
+          <button
+            style={{ paddingRight: '1.7rem' }}
+            className={`${styles.button} ${selectedButton === 'Facial' ? styles.facial : null}`}
+            onClick={() => handleClick('Facial')}
+          >
+            Facial
+          </button>
+        </div>
       </div>
-
-      {selectedButton === 'Corporal' ? renderServicos(groupedInfosCorporal) : renderServicos(groupedInfosFacial)}
-
+      <div className={styles.servicos}>
+        {selectedButton === 'Corporal' ? renderServicos(groupedInfosCorporal) : renderServicos(groupedInfosFacial)}
+      </div>
+      <div className={styles.servicosMedia}>
+        {selectedButton === 'Corporal' ? renderServicos(groupedInfosCorporalMedia) : renderServicos(groupedInfosFacialMedia)}
+      </div>
       <br />
       <Footer />
     </div>

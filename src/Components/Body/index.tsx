@@ -115,28 +115,53 @@ function Body() {
       <div className={styles.content3}>
         <span className={styles.titleContent3}>Meus tratamentos</span>
         <br />
+        <br />
         <span className={styles.textContent3}>{dataTratamentosMensagem}</span>
       </div>
-      {dataProcedimentos?.length > 0 &&
-        <div className={styles.imagensText}>
-          <button className={styles.buttonPagination} onClick={prevImage} disabled={currentImage === 0}>
-            <BsChevronCompactLeft fontSize={50} />
-          </button>
-          {dataProcedimentos?.slice(currentImage, currentImage + 5).map((imagem: any) => (
-            <Link to='/servicos'>
-              <Mensagem
-                key={imagem.id}
-                imageUrl={imagem.imagem}
-                title={imagem.nome}
-                text={imagem.descricao}
-              />
-            </Link>
-          ))}
-          <button className={styles.buttonPagination} onClick={nextImage} disabled={currentImage >= dataProcedimentos?.length - 5}>
-            <BsChevronCompactRight fontSize={50} />
-          </button>
-        </div>
-      }
+      <div className={styles.meusTratamentos}>
+        {dataProcedimentos?.length > 0 &&
+          <div className={styles.imagensText}>
+            <button className={styles.buttonPagination} onClick={prevImage} disabled={currentImage === 0}>
+              <BsChevronCompactLeft fontSize={50} />
+            </button>
+            {dataProcedimentos?.slice(currentImage, currentImage + 5).map((imagem: any) => (
+              <Link to='/servicos'>
+                <Mensagem
+                  key={imagem.id}
+                  imageUrl={imagem.imagem}
+                  title={imagem.nome}
+                  text={imagem.descricao}
+                />
+              </Link>
+            ))}
+            <button className={styles.buttonPagination} onClick={nextImage} disabled={currentImage >= dataProcedimentos?.length - 5}>
+              <BsChevronCompactRight fontSize={50} />
+            </button>
+          </div>
+        }
+      </div>
+      <div className={styles.meusTratamentos2}>
+        {dataProcedimentos?.length > 0 &&
+          <div className={styles.imagensText}>
+            <button className={styles.buttonPagination} onClick={prevImage} disabled={currentImage === 0}>
+              <BsChevronCompactLeft fontSize={50} />
+            </button>
+            {dataProcedimentos?.slice(currentImage, currentImage + 1).map((imagem: any) => (
+              <Link to='/servicos'>
+                <Mensagem
+                  key={imagem.id}
+                  imageUrl={imagem.imagem}
+                  title={imagem.nome}
+                  text={imagem.descricao}
+                />
+              </Link>
+            ))}
+            <button className={styles.buttonPagination} onClick={nextImage} disabled={currentImage >= dataProcedimentos?.length - 1}>
+              <BsChevronCompactRight fontSize={50} />
+            </button>
+          </div>
+        }
+      </div>
       <div className={styles.sobre} style={{ backgroundImage: `url(${sobreBrackground})`, backgroundPosition: 'right center', backgroundRepeat: 'no-repeat' }}>
         <div className={styles.imgSobre} style={{ backgroundImage: `url(${sobreImg})`, backgroundRepeat: 'no-repeat' }} />
         <h1 className={styles.titleSobre}>Sobre</h1>

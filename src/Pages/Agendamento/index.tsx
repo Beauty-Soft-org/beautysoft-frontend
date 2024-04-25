@@ -8,6 +8,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Calendar } from 'primereact/calendar';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 import { useLocation } from 'react-router-dom';
+import Modal from 'react-modal';
 
 const Agendamento: React.FC = () => {
 
@@ -20,6 +21,8 @@ const Agendamento: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { informacoes } = location.state || {};
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [alertMessage, setAlert] = useState<string>();
 
   function formatarHoraMinuto(tempoEmHoras: string) {
     const partes = tempoEmHoras.split(':');
@@ -59,21 +62,40 @@ const Agendamento: React.FC = () => {
 
       axios.post(apiUrl, params)
         .then(() => {
-          alert('Agendamento realizado com sucesso!');
-          navigate('/');
+          setIsModalOpen(true)
+          setAlert('Agendamento realizado com sucesso!');
         })
         .catch(() => {
-          alert('Erro ao realizar agendamento!');
+          setIsModalOpen(true)
+          setAlert('Erro ao realizar agendamento!');
         });
     } else {
-      alert('Selecione uma data e horário para realizar o agendamento!');
+      setIsModalOpen(true)
+      setAlert('Selecione uma data e horário para realizar o agendamento!');
     }
   }
 
+  function onConfirmModal() {
+    if (alertMessage === 'Agendamento realizado com sucesso!') {
+      navigate('/');
+    } else {
+      setIsModalOpen(false)
+    }
+  }
   return (
-    <div className={styles.teste}>
+    <div>
       <Menu />
       <div className={styles.agendamentoContainer}>
+        <Modal
+          className={styles.modal}
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)}
+        >
+          <h2>{alertMessage}</h2>
+          <div className={styles.contentButtonsModal}>
+            <button onClick={() => onConfirmModal()}>OK</button>
+          </div>
+        </Modal>
         <Link to='/servicos' className={styles.link}>Voltar</Link>
         <div className={styles.contentTitle}>
           <h1 className={styles.title}>{informacoes.nome}</h1>
@@ -86,7 +108,7 @@ const Agendamento: React.FC = () => {
         </div>
         <div className={styles.contentCalendar}>
           <Calendar className={styles.calendar} value={date} onChange={(e) => setDate(e.value)} inline locale='pt-br' panelStyle={{ border: 'none' }} />
-          <div>
+          <div className={styles.containerHorarios}>
             <p className={styles.titleCalendar}>{date?.toLocaleDateString('pt-br', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
             {date &&
               <div className={styles.contentHorarios}>
@@ -129,7 +151,7 @@ const Agendamento: React.FC = () => {
                 </>
               )}
             </div>
-            <button onClick={() => (horarioState ? cadastroAgendamento() : alert('Selecione um horário para realizar o agendamento!'))} className={styles.buttonConfirm}>Agendar</button>
+            <button onClick={() => cadastroAgendamento()} className={styles.buttonConfirm}>Agendar</button>
           </div>
         </div>
       </div>

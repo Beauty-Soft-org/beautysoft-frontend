@@ -3,6 +3,44 @@
    background-color: white;
  }
 
+ .modal {
+   background-color: white;
+   border-radius: 8px;
+   padding: 1rem;
+   width: 30%;
+   margin: auto;
+   box-shadow: 0 0 .4rem .1rem rgba(0, 0, 0, 0.1);
+   margin-top: 10rem;
+   min-width: 20rem;
+ }
+
+ .modal h2 {
+   font-family: cursive;
+   font-size: 1.2rem;
+   color: #58538B;
+   margin-top: .3rem !important;
+ }
+
+ .contentButtonsModal {
+   text-align: center;
+   width: 100%;
+ }
+
+ .modal button {
+   margin-top: 1rem;
+   padding: .5rem 1rem;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 16px;
+   color: white;
+   background-color: #58538B;
+ }
+
+ .modal button:hover {
+   opacity: 0.9;
+ }
+
  th {
    background-color: white;
    font-weight: 500;
@@ -32,7 +70,7 @@
 
      .title {
        font-size: 2.5rem;
-       font-family: 'Times New Roman', Times, serif;
+       font-family: cursive;
        font-weight: 500;
        margin-bottom: 0;
      }
@@ -52,7 +90,7 @@
 
      .titleForm {
        font-size: 1.5rem;
-       font-family: 'Times New Roman', Times, serif;
+       font-family: cursive;
        font-weight: 400;
        margin-bottom: 0;
        padding-bottom: 1rem;
@@ -137,5 +175,48 @@
        border: 1px solid;
        cursor: pointer;
      }
+   }
+ }
+
+ @media (max-width: 768px) {
+   .agendamentoForm {
+     width: 85% !important;
+     text-align: center !important;
+     margin: auto !important;
+
+     .contentTitleForm {
+       width: 85% !important;
+       margin: auto !important;
+     }
+   }
+
+   .agendamentoContainer {
+     width: 85% !important;
+     margin: auto !important;
+     text-align: center !important;
+   }
+
+   .contentCalendar {
+     display: flex;
+     margin: auto !important;
+     flex-direction: column !important;
+     width: 85% !important;
+     text-align: center !important;
+   }
+
+   .buttonConfirm {
+     margin-bottom: 1rem !important;
+   }
+
+   .containerHorarios {
+     margin: auto !important;
+     text-align: center !important;
+   }
+
+   .contentHorarios {
+     display: flex !important;
+     width: 100% !important;
+     margin: auto !important;
+     text-align: center !important;
    }
  }

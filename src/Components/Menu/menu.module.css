@@ -9,7 +9,7 @@
     flex-direction: row;
     text-align: center;
     width: 25%;
-    min-width: 30rem;
+
     align-items: center;
     gap: 1.5rem;
     padding-left: 4rem;
@@ -23,7 +23,7 @@
 
     .link {
       text-decoration: none;
-      color: black;
+      color: rgb(27, 20, 100);
     }
   }
 
@@ -38,7 +38,6 @@
     font-family: cursive;
     font-size: large;
     color: rgb(27, 20, 100);
-    min-width: 20rem;
   }
 
   .menuLogin {
@@ -47,13 +46,13 @@
     align-items: center;
     gap: .5rem;
     width: 25%;
-    padding-left: 4rem;
     color: rgb(27, 20, 100);
   }
 
   .iconPerfil {
     text-decoration: none;
-    color: black;
+    color: rgb(27, 20, 100);
+    margin-left: auto;
   }
 
   .dropdownMoreContent {
@@ -68,7 +67,7 @@
 
     .dropdownLinkProcedimentos {
       text-decoration: none;
-      color: black;
+      color: rgb(27, 20, 100);
       text-align: left;
       font-weight: 400;
       padding: .2rem 1rem .2rem 1rem;
@@ -76,15 +75,18 @@
 
     .dropdownLinkVoucher {
       text-decoration: none;
-      color: black;
+      color: rgb(27, 20, 100);
       text-align: left;
       font-weight: 400;
       padding: .2rem 1rem .2rem 1rem;
     }
   }
 
-  .dropdown {
+  .dropdown,
+  .dropdownLogoff {
     position: relative;
+    margin-right: auto;
+    color: rgb(27, 20, 100);
   }
 
   .iconButton:hover {
@@ -98,7 +100,7 @@
   .dropdownLinkA,
   .dropdownLinkB {
     text-decoration: none;
-    color: black;
+    color: rgb(27, 20, 100);
     text-align: left;
     font-weight: 400;
     padding: 0rem 1rem 0rem 1rem;
@@ -130,26 +132,118 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1324px) {
   .header {
-    flex-direction: column;
+    flex-direction: row;
     width: 100% !important;
 
-    .menu,
+    .iconPerfil {
+      display: flex;
+      width: 1.7rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-top: 0rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin-top: 0rem;
+    }
+
+    .link {
+      margin-top: -1rem;
+    }
+
     .menuLogin {
-      font-size: 1rem !important;
-      width: 100% !important;
+      font-size: .98rem !important;
       min-width: 0 !important;
       padding-left: .5rem !important;
       gap: .5rem;
       text-align: center !important;
+      margin-top: -3rem;
     }
 
     .nameMenu {
-      font-size: 1rem !important;
-      width: 100% !important;
       margin: 0 !important;
     }
+  }
 
+  .menu {
+    display: flex;
+    flex-direction: column !important;
+    font-size: 1rem !important;
+    align-items: normal !important;
+    text-align: left !important;
+    gap: 1rem !important;
+    padding-left: 1rem !important;
+    font-weight: 500;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .dropdown {
+    margin: 0 !important;
+    margin-top: -.9rem !important;
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: row;
+    width: 100% !important;
+
+    .iconPerfil {
+      display: flex;
+      width: 1.7rem;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      margin-top: 1.5rem;
+    }
+
+    h4 {
+      font-size: .9rem;
+      margin-top: .3rem;
+    }
+
+    .link {
+      margin-top: -1rem;
+    }
+
+    .menuLogin {
+      font-size: .98rem !important;
+      min-width: 0 !important;
+      padding-left: .5rem !important;
+      gap: .5rem;
+      text-align: center !important;
+      margin-top: -3rem;
+    }
+
+    .nameMenu {
+      margin: 0 !important;
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column !important;
+    font-size: 1rem !important;
+    align-items: normal !important;
+    text-align: left !important;
+    gap: 1rem !important;
+    padding-left: 1rem !important;
+    font-weight: 500;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .dropdown {
+    margin: 0 !important;
+    margin-top: -.9rem !important;
   }
 }

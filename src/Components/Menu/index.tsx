@@ -25,9 +25,6 @@ function Menu() {
     localStorage.clear();
   }
 
-
-  console.log('status', status)
-
   return (
     <div className={styles.header}>
       <div className={styles.menu}>
@@ -36,7 +33,6 @@ function Menu() {
         {(status === 'Usuario' || status === 'Admin') &&
           <Link to="/servicos" className={styles.link}>Agendamento</Link>
         }
-        <div>Histórico</div>
         {status === 'Admin' &&
           <div className={styles.dropdown}>
             <div className={styles.more} onClick={toggleDropdownMore}>Mais...</div>
@@ -57,7 +53,7 @@ function Menu() {
       </div>
       <div className={`${styles.menuLogin} ${dropdownIcon ? styles.open : ''}`}>
         <Link to="/perfil" className={styles.iconPerfil}><FaUserCircle style={{ fontSize: '2.2rem' }} /></Link>
-        <div className={styles.dropdown}>
+        <div className={styles.dropdownLogoff}>
           <FiChevronDown className={styles.iconButton} style={{ fontSize: '2rem' }} onClick={toggleDropdownIcon} />
           {dropdownIcon && localStorage.getItem('email') === null ? (
             <div className={styles.dropdownContent}>

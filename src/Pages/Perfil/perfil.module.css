@@ -156,6 +156,10 @@
   font-weight: bold;
 }
 
+.itemGroupNumero2 {
+  display: none;
+}
+
 .menu {
   display: flex;
   align-items: center;
@@ -177,4 +181,53 @@
   color: #58538B;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .perfilMenu {
+    width: 100% !important;
+    height: 8rem;
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: auto;
+    width: 100% !important;
+    margin-top: -1rem;
+    color: #1B1464 !important;
+  }
+
+  .fotoUsuario {
+    width: 45px;
+    height: 45px;
+    margin-top: 0rem;
+  }
+
+  .perfil form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .perfilGroup {
+    display: flex;
+    width: 100%;
+    margin: auto;
+  }
+
+  .nomeUsuario h2 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: -1rem !important;
+  }
+
+  .itemGroupNumero2 {
+    display: inline;
+  }
+
+  .itemGroupNumero {
+    display: none !important;
+  }
 }

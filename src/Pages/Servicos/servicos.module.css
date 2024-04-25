@@ -1,3 +1,8 @@
+.servicosMedia {
+  display: none !important;
+}
+
+
 .contentServicos {
   display: flex;
   gap: 2rem;
@@ -11,7 +16,7 @@
   text-align: center;
   font-size: 2.2rem;
   margin-left: 3.8rem;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: cursive;
   font-weight: 400;
   margin-top: 5rem;
 }
@@ -42,7 +47,6 @@
   }
 }
 
-
 .box {
   width: 15rem;
   border: 1px solid black;
@@ -52,7 +56,7 @@
 
   .titleBox {
     font-size: 1.8rem;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: cursive;
     font-weight: 400;
     padding-bottom: 2rem;
     border-bottom: 1px solid black;
@@ -81,4 +85,30 @@
   }
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+
+  .servicos {
+    display: none;
+  }
+
+  .title {
+    margin-left: 0rem !important;
+  }
+
+  .boxServicos {
+    width: 100%;
+  }
+
+  .servicosMedia {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .box {
+    margin: auto !important;
+  }
+
+  .contentOption {
+    width: 13.7rem;
+  }
+}
