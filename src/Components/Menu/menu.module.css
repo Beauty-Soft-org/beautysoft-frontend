@@ -63,7 +63,7 @@
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    width: 13.3rem;
+    width: 14.3rem;
 
     .dropdownLinkProcedimentos {
       text-decoration: none;
