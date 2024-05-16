@@ -149,8 +149,7 @@ function Perfil() {
     }
 
     run();
-  }, [dataPerfil.email, navigate, run2]);
-
+  }, [dataPerfil, navigate, run2]);
 
   useEffect(() => {
     if (dataPerfil.cep) {
