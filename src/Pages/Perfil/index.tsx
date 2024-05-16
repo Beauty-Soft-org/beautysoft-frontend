@@ -30,45 +30,6 @@ function Perfil() {
   const [dataPerfilMensagem, setDataPerfilMensagem] = useState<any>();
   const [aba, setAba] = useState<string>('Perfil');
 
-  async function run() {
-    try {
-
-      console.log('email', localStorage.getItem('email'))
-
-      if (localStorage.getItem('status') === null) {
-        navigate('/register');
-      }
-      console.log('dataPerfil', dataPerfil)
-      const getPerfilUsuario = await axios.get(`${Config.baseUrl}/api/PerfilUsuario/${dataPerfil.email}`);
-
-      const dataNascimentoFormatada = new Date(getPerfilUsuario.data.dataNascimento).toISOString().split('T')[0];
-
-      setDataPerfil((prevState: any) => ({
-        ...prevState,
-        nome: getPerfilUsuario.data.nome,
-        sobrenome: getPerfilUsuario.data.sobrenome,
-        telefone: getPerfilUsuario.data.telefone,
-        dataNascimento: dataNascimentoFormatada,
-        cpf: getPerfilUsuario.data.cpf,
-        cep: getPerfilUsuario.data.cep,
-        uf: getPerfilUsuario.data.uf,
-        municipio: getPerfilUsuario.data.municipio,
-        bairro: getPerfilUsuario.data.bairro,
-        logradouro: getPerfilUsuario.data.logradouro,
-        numero: getPerfilUsuario.data.numeroCasa,
-        complemento: getPerfilUsuario.data.complemento,
-      }));
-
-      run2();
-    } catch (error: any) {
-      if (error.response?.status === 404) {
-        console.log('Perfil de usuário não encontrado');
-      } else {
-        console.error('Erro ao obter perfil de usuário:', error);
-      }
-    }
-  }
-
   async function handleUpdateProfile() {
     try {
       const params = {
@@ -149,8 +110,47 @@ function Perfil() {
   };
 
   useEffect(() => {
+    async function run() {
+      try {
+        console.log('email', localStorage.getItem('email'))
+
+        if (localStorage.getItem('status') === null) {
+          navigate('/register');
+        }
+        console.log('dataPerfil', dataPerfil)
+        const getPerfilUsuario = await axios.get(`${Config.baseUrl}/api/PerfilUsuario/${dataPerfil.email}`);
+
+        const dataNascimentoFormatada = new Date(getPerfilUsuario.data.dataNascimento).toISOString().split('T')[0];
+
+        setDataPerfil((prevState: any) => ({
+          ...prevState,
+          nome: getPerfilUsuario.data.nome,
+          sobrenome: getPerfilUsuario.data.sobrenome,
+          telefone: getPerfilUsuario.data.telefone,
+          dataNascimento: dataNascimentoFormatada,
+          cpf: getPerfilUsuario.data.cpf,
+          cep: getPerfilUsuario.data.cep,
+          uf: getPerfilUsuario.data.uf,
+          municipio: getPerfilUsuario.data.municipio,
+          bairro: getPerfilUsuario.data.bairro,
+          logradouro: getPerfilUsuario.data.logradouro,
+          numero: getPerfilUsuario.data.numeroCasa,
+          complemento: getPerfilUsuario.data.complemento,
+        }));
+
+        run2();
+      } catch (error: any) {
+        if (error.response?.status === 404) {
+          console.log('Perfil de usuário não encontrado');
+        } else {
+          console.error('Erro ao obter perfil de usuário:', error);
+        }
+      }
+    }
+
     run();
-  }, [run]);
+  }, [dataPerfil.email, navigate, run2]);
+
 
   useEffect(() => {
     if (dataPerfil.cep) {
@@ -168,6 +168,7 @@ function Perfil() {
         .catch(error => console.error(error));
     }
   }, [dataPerfil.cep, setDataPerfil]);
+
 
   return (
     <div>

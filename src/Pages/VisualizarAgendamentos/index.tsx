@@ -93,41 +93,6 @@ const VisualizarAgendamento: React.FC = () => {
     setTipoProcedimento(1);
   }
 
-  const run = () => {
-    const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
-
-    axios.get(apiUrl)
-      .then((response) => {
-        const modifiedData = response.data.map((item: any) => {
-          const dataHoraAgendada = new Date(item.dataHoraAgendada);
-
-          const formatoDataHora: Intl.DateTimeFormatOptions = {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          };
-
-          return {
-            Nome: item.nome,
-            id: item.id,
-            Descrição: item.descricao,
-            "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
-            'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
-            Valor: ` R$ ${item.valor}`,
-            Tempo: item.tempo,
-          };
-        });
-
-        setData(modifiedData);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar agendamentos:', error);
-      });
-  };
-
-
   const handleDelete = () => {
     if (deletingIndex !== undefined) {
       const apiUrl = `${Config.baseUrl}/api/Agendamentos/${deletingIndex}`;
@@ -179,8 +144,42 @@ const VisualizarAgendamento: React.FC = () => {
   };
 
   useEffect(() => {
+    const run = () => {
+      const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
+
+      axios.get(apiUrl)
+        .then((response) => {
+          const modifiedData = response.data.map((item: any) => {
+            const dataHoraAgendada = new Date(item.dataHoraAgendada);
+
+            const formatoDataHora: Intl.DateTimeFormatOptions = {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            };
+
+            return {
+              Nome: item.nome,
+              id: item.id,
+              Descrição: item.descricao,
+              "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
+              'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
+              Valor: ` R$ ${item.valor}`,
+              Tempo: item.tempo,
+            };
+          });
+
+          setData(modifiedData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar agendamentos:', error);
+        });
+    };
+
     run();
-  }, [refresh, run]);
+  }, [refresh]);
 
   return (
     <div className={styles.cadastroContainer}>

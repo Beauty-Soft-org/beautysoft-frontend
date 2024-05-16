@@ -70,30 +70,6 @@ const Voucher: React.FC = () => {
       });
   };
 
-  const run = () => {
-    const apiUrl = `${Config.baseUrl}/api/Voucher`;
-
-    axios.get(apiUrl)
-      .then((response) => {
-        console.log('Vouchers exibidos com sucesso!');
-        const modifiedData = response.data.map((item: any) => {
-          return {
-            Nome: item.nome,
-            id: item.id,
-            Descrição: item.descricao,
-            Habilitado: item.campo.toString(),
-          };
-        });
-
-        console.log('modifiedData', modifiedData)
-
-        setData(modifiedData);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar vouchers:', error);
-      });
-  };
-
   function limpar() {
     setNome('');
     setDescricao('');
@@ -138,8 +114,32 @@ const Voucher: React.FC = () => {
   };
 
   useEffect(() => {
+    const run = () => {
+      const apiUrl = `${Config.baseUrl}/api/Voucher`;
+
+      axios.get(apiUrl)
+        .then((response) => {
+          console.log('Vouchers exibidos com sucesso!');
+          const modifiedData = response.data.map((item: any) => {
+            return {
+              Nome: item.nome,
+              id: item.id,
+              Descrição: item.descricao,
+              Habilitado: item.campo.toString(),
+            };
+          });
+
+          console.log('modifiedData', modifiedData)
+
+          setData(modifiedData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar vouchers:', error);
+        });
+    };
+
     run();
-  }, [refresh, run]);
+  }, [refresh]);
 
   return (
     <div className={styles.cadastroContainer}>
