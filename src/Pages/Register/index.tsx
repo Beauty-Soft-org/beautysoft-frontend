@@ -11,7 +11,6 @@ const Register: React.FC = () => {
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [data, setData] = useState<any>(null);
   const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -42,7 +41,6 @@ const Register: React.FC = () => {
 
       axios.post(apiUrl, params)
         .then((response) => {
-          setData(response.data);
           setIsModalOpen(true);
           setMensagemRegister('Cadastro realizado com sucesso!');
         })

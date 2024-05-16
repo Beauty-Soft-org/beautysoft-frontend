@@ -8,7 +8,6 @@ import Modal from 'react-modal';
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [data, setData] = useState<any>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ const Login: React.FC = () => {
 
     axios.post(apiUrl, params)
       .then((response) => {
-        setData(response.data);
         localStorage.setItem('status', response.data.status === "" ? 'Usuario' : response.data.status);
         localStorage.setItem('email', response.data.email)
         navigate('/');

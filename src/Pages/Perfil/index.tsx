@@ -150,7 +150,7 @@ function Perfil() {
 
   useEffect(() => {
     run();
-  }, [])
+  }, [run]);
 
   useEffect(() => {
     if (dataPerfil.cep) {
@@ -167,7 +167,7 @@ function Perfil() {
         })
         .catch(error => console.error(error));
     }
-  }, [dataPerfil.cep]);
+  }, [dataPerfil.cep, setDataPerfil]);
 
   return (
     <div>

@@ -178,7 +178,9 @@ const VisualizarAgendamento: React.FC = () => {
     return `${ano}-${mes}-${dia}T${horas}:${minutos}`;
   };
 
-  useEffect(run as any, [refresh]);
+  useEffect(() => {
+    run();
+  }, [refresh, run]);
 
   return (
     <div className={styles.cadastroContainer}>

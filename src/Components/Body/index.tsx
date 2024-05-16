@@ -89,7 +89,7 @@ function Body() {
 
   return (
     <div className={styles.body}>
-      <img src={Img1} className={styles.imgBody} />
+      <img src={Img1} alt="img1Body" className={styles.imgBody} />
       <div className={styles.contentImg1}>
         <p className={styles.contentP1Text}>
           {dataMensagem && dataMensagem[conteudoIndex] ? (conteudoIndex + 1).toString().padStart(2, '0') : ""}
@@ -105,7 +105,7 @@ function Body() {
         </div>
       </div>
       <div className={styles.contentImg2}>
-        <img src={Img2_1} className={styles.img2_1Body} />
+        <img src={Img2_1} alt="img2Body" className={styles.img2_1Body} />
         <div className={styles.img2Body} style={{ backgroundImage: `url(${Img2})`, backgroundRepeat: 'no-repeat' }}>
           <h1 className={styles.titleImg2}>Vitória Garavazzo</h1>
           <span className={styles.lineImg2}></span>

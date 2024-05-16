@@ -159,7 +159,9 @@ const CadastroMensagem: React.FC = () => {
       });
   };
 
-  useEffect(run as any, [refresh]);
+  useEffect(() => {
+    run();
+  }, [refresh, run]);
 
   return (
     <div className={styles.cadastroContainer}>

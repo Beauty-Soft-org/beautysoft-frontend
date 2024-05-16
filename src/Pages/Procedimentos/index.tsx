@@ -166,7 +166,10 @@ const Procedimentos: React.FC = () => {
     limpar();
   }
 
-  useEffect(run as any, [refresh]);
+  useEffect(() => {
+    run();
+  }, [refresh, run]);
+
 
   return (
     <div className={styles.cadastroContainer}>

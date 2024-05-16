@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './agendamento.module.css';
 import axios from 'axios';
 import Config from '../../Config.json';
 import Menu from '../../Components/Menu';
 import Footer from '../../Components/Footer';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Calendar } from 'primereact/calendar';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 import { useLocation } from 'react-router-dom';
