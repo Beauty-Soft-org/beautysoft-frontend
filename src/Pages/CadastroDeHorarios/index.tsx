@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import MultiDateSelector from '../../Components/MultiDataSelector';
 import styles from './cadastroHorarios.module.css'
 import axios from 'axios';
