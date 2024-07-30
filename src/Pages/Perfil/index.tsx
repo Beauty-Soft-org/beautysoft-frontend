@@ -26,6 +26,7 @@ function Perfil() {
     complemento: "",
   });
   const [data, setData] = useState([]);
+<<<<<<< HEAD
   const [dataUsuarios, setDataUsuarios] = useState<any[]>();
   const navigate = useNavigate();
   const [dataPerfilMensagem, setDataPerfilMensagem] = useState<any>();
@@ -92,6 +93,11 @@ function Perfil() {
       }
     }
   }
+=======
+  const navigate = useNavigate();
+  const [dataPerfilMensagem, setDataPerfilMensagem] = useState<any>();
+  const [aba, setAba] = useState<string>('Perfil');
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   async function handleUpdateProfile() {
     try {
@@ -136,6 +142,7 @@ function Perfil() {
     }
   }
 
+<<<<<<< HEAD
   const run2 = () => {
     const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
 
@@ -175,6 +182,86 @@ function Perfil() {
   useEffect(() => {
     run();
   }, [])
+=======
+  useEffect(() => {
+    async function run() {
+      try {
+        console.log('email', localStorage.getItem('email'))
+
+        if (localStorage.getItem('status') === null) {
+          navigate('/register');
+        }
+        console.log('dataPerfil', dataPerfil)
+        const getPerfilUsuario = await axios.get(`${Config.baseUrl}/api/PerfilUsuario/${dataPerfil.email}`);
+
+        const dataNascimentoFormatada = new Date(getPerfilUsuario.data.dataNascimento).toISOString().split('T')[0];
+
+        setDataPerfil((prevState: any) => ({
+          ...prevState,
+          nome: getPerfilUsuario.data.nome,
+          sobrenome: getPerfilUsuario.data.sobrenome,
+          telefone: getPerfilUsuario.data.telefone,
+          dataNascimento: dataNascimentoFormatada,
+          cpf: getPerfilUsuario.data.cpf,
+          cep: getPerfilUsuario.data.cep,
+          uf: getPerfilUsuario.data.uf,
+          municipio: getPerfilUsuario.data.municipio,
+          bairro: getPerfilUsuario.data.bairro,
+          logradouro: getPerfilUsuario.data.logradouro,
+          numero: getPerfilUsuario.data.numeroCasa,
+          complemento: getPerfilUsuario.data.complemento,
+        }));
+
+        run2();
+      } catch (error: any) {
+        if (error.response?.status === 404) {
+          console.log('Perfil de usuário não encontrado');
+        } else {
+          console.error('Erro ao obter perfil de usuário:', error);
+        }
+      }
+    }
+
+    const run2 = () => {
+      const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
+
+      axios.get(apiUrl)
+        .then((response) => {
+
+          const modifiedData = response.data.filter((item: any) => item.email === localStorage.getItem('email')).map((item: any) => {
+            const dataHoraAgendada = new Date(item.dataHoraAgendada);
+
+            const formatoDataHora: Intl.DateTimeFormatOptions = {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            };
+
+            return {
+              Nome: item.nome,
+              id: item.id,
+              Descrição: item.descricao,
+              Email: item.email,
+              "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
+              'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
+              Valor: ` R$ ${item.valor}`,
+              Tempo: item.tempo,
+            };
+          });
+
+          setData(modifiedData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar agendamentos:', error);
+        });
+    };
+
+    run();
+  }, [dataPerfil, navigate]);
+
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   useEffect(() => {
     if (dataPerfil.cep) {
@@ -191,7 +278,12 @@ function Perfil() {
         })
         .catch(error => console.error(error));
     }
+<<<<<<< HEAD
   }, [dataPerfil.cep]);
+=======
+  }, [dataPerfil.cep, setDataPerfil, dataPerfil]);
+
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   return (
     <div>
@@ -204,10 +296,15 @@ function Perfil() {
       </div>
       <div className={styles.perfil}>
         <div className={styles.menu}>
+<<<<<<< HEAD
           {localStorage.getItem('status') !== 'Admin' &&
             <span onClick={() => setAba('Perfil')} className={styles.menuItem}>Perfil</span>
           }
           <span onClick={() => { setAba('Agendamentos'); run2() }} className={styles.menuItem}>{localStorage.getItem('status') !== 'Admin' && 'Meus agendamentos'}</span>
+=======
+          <span onClick={() => setAba('Perfil')} className={styles.menuItem}>Perfil</span>
+          <span onClick={() => setAba('Agendamentos')} className={styles.menuItem}>Meus agendamentos</span>
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
         </div>
         {aba === 'Perfil' ? (
           <div>
@@ -383,6 +480,7 @@ function Perfil() {
               </div>
             </form>
           </div>
+<<<<<<< HEAD
         ) : localStorage.getItem('status') === 'Admin' ? (
           <div className={styles.visualizarBox}>
             {dataUsuarios?.length === 0 ? <span className={styles.titleVisualizar}>Não tem usuários cadastrados para serem exibidos</span> :
@@ -399,6 +497,13 @@ function Perfil() {
             {data?.length === 0 ? <span className={styles.titleVisualizar}>Você não possui agendamentos para serem exibidos.</span> :
               <div>
                 <span className={styles.titleVisualizar}>{data?.length === 1 ? 'Meu Agendamento' : 'Meus Agendamentos'}</span>
+=======
+        ) : (
+          <div className={styles.visualizarBox}>
+            {data.length === 0 ? <span className={styles.titleVisualizar}>Você não possui agendamentos para serem exibidos.</span> :
+              <div>
+                <span className={styles.titleVisualizar}>{data.length === 1 ? 'Meu Agendamento' : 'Meus Agendamentos'}</span>
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
                 <div className={styles.contentTable}>
                   <Table data={data} />
                 </div>

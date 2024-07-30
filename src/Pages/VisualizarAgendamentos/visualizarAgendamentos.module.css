@@ -30,6 +30,7 @@
   margin-left: 1.3px;
 }
 
+<<<<<<< HEAD
 .errorTextFilter {
   color: red;
   font-size: 16px;
@@ -39,6 +40,8 @@
   margin-left: 1.3px;
 }
 
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 .visualizarBox {
   background-color: #f0f2f5;
   padding: 0 40px;
@@ -83,7 +86,11 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+<<<<<<< HEAD
   width: 100% !important;
+=======
+  width: 94.3% !important;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 }
 
 select {
@@ -97,19 +104,27 @@ select {
 
 .cadastroButton {
   background-color: #58538B;
+<<<<<<< HEAD
+=======
+  ;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   color: #fff;
   border: none;
   border-radius: 4px;
   padding: 10px 15px;
   font-size: 14px;
   cursor: pointer;
+<<<<<<< HEAD
   font-size: 16px;
   font-weight: 600;
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   transition: background-color 0.2s ease-in-out;
   width: 100%;
 }
 
 .cadastroButton:hover,
+<<<<<<< HEAD
 .voltarButton:hover,
 .filterButton:hover {
   background-color: #746EB8;
@@ -130,16 +145,29 @@ select {
   text-decoration: none;
   margin-left: auto;
   letter-spacing: .5px;
+=======
+.voltarButton:hover {
+  background-color: #746EB8;
+  ;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 }
 
 .voltarButton {
   background-color: #58538B;
+<<<<<<< HEAD
+=======
+  ;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   border: none;
   border-radius: 4px;
   padding: 10px 15px;
   margin-top: .5rem;
+<<<<<<< HEAD
   font-size: 16px;
   font-weight: 600;
+=======
+  font-size: 14px;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   width: 100%;
@@ -185,11 +213,14 @@ select {
   opacity: 0.9;
 }
 
+<<<<<<< HEAD
 .header {
   display: flex;
   align-items: center;
 }
 
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 @media (max-width: 768px) {
   .cadastroBox {
     width: 90%;

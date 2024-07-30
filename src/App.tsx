@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login'
@@ -13,7 +16,10 @@ import Servicos from './Pages/Servicos';
 import VisualizarAgendamentos from './Pages/VisualizarAgendamentos';
 import Agendamento from './Pages/Agendamento';
 import { PrimeReactProvider } from 'primereact/api';
+<<<<<<< HEAD
 import AgendamentoForm from './Pages/CadastroDeHorarios';
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
 function App() {
 
@@ -38,7 +44,10 @@ function App() {
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/servicos" element={(status === 'Usuario' || status === 'Admin') ? <Servicos /> : <Home />} />
           <Route path="/agendamentos" element={(status === 'Usuario' || status === 'Admin') ? <Agendamento /> : <Home />} />
+<<<<<<< HEAD
           <Route path="/cadastroHorarios" element={(status === 'Usuario' || status === 'Admin') ? <AgendamentoForm /> : <Home />} />
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
           <Route path="/perfil" element={(status !== null ? <Perfil /> : <Register />)} />
         </Routes>
       </BrowserRouter>

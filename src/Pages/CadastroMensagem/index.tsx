@@ -91,6 +91,7 @@ const CadastroMensagem: React.FC = () => {
     }
   };
 
+<<<<<<< HEAD
   const run = () => {
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
 
@@ -115,6 +116,8 @@ const CadastroMensagem: React.FC = () => {
       });
   };
 
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   function limpar() {
     setNome('');
     setDescricao('');
@@ -159,7 +162,37 @@ const CadastroMensagem: React.FC = () => {
       });
   };
 
+<<<<<<< HEAD
   useEffect(run as any, [refresh]);
+=======
+  useEffect(() => {
+    const run = () => {
+      const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
+
+      axios.get(apiUrl)
+        .then((response) => {
+          console.log('Mensagens exibidas com sucesso!');
+          const modifiedData = response.data.map((item: any) => {
+            return {
+              Nome: item.nome,
+              id: item.id,
+              Descrição: item.descricao,
+              "Tipo de Mensagem": consultarTipoMensagem(item.tipoMensagemTemporaria),
+              Habilitado: item.habilitado.toString(),
+            };
+          });
+
+          setData(modifiedData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar mensagens:', error);
+        });
+    };
+
+    run();
+  }, [refresh]);
+
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   return (
     <div className={styles.cadastroContainer}>

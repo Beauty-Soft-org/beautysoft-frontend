@@ -11,7 +11,10 @@ const Register: React.FC = () => {
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+<<<<<<< HEAD
   const [data, setData] = useState<any>(null);
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -30,7 +33,11 @@ const Register: React.FC = () => {
     if (confirmPassword !== password) {
       setConfirmPasswordError("As senhas não são iguais!");
     } else if (email && nomeUsuario && password) {
+<<<<<<< HEAD
       const apiUrl = `${Config.baseUrl}/api/Usuarios/Registrar`;
+=======
+      const apiUrl = `${Config.baseUrl}/api/Usuarios/register`;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
       setConfirmPasswordError(null);
 
       const params = {
@@ -42,7 +49,10 @@ const Register: React.FC = () => {
 
       axios.post(apiUrl, params)
         .then((response) => {
+<<<<<<< HEAD
           setData(response.data);
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
           setIsModalOpen(true);
           setMensagemRegister('Cadastro realizado com sucesso!');
         })

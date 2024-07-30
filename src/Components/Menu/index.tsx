@@ -42,7 +42,10 @@ function Menu() {
                 <Link to="/voucher" className={styles.dropdownLinkVoucher}>Voucher</Link>
                 <Link to="/cadastroMensagens" className={styles.dropdownLinkVoucher}>Mensagens</Link>
                 <Link to="/visualizarAgendamentos" className={styles.dropdownLinkVoucher}>Visualizar Agendamentos</Link>
+<<<<<<< HEAD
                 <Link to="/cadastroHorarios" className={styles.dropdownLinkVoucher}>Cadastro Horarios</Link>
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
               </div>
             )}
           </div>

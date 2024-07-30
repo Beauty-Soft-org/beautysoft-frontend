@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import Config from '../../Config.json';
 import Modal from 'react-modal';
+<<<<<<< HEAD
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
 const VisualizarAgendamento: React.FC = () => {
   const [nome, setNome] = useState<string>('');
@@ -26,6 +29,7 @@ const VisualizarAgendamento: React.FC = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [deletingIndex, setDeletingIndex] = useState<number>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+<<<<<<< HEAD
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [filterNome, setFilterNome] = useState<string>('');
   const [filterDataAgendamento, setFilterDataAgendamento] = useState<string | null>(null);
@@ -34,6 +38,11 @@ const VisualizarAgendamento: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleClickCadastro = () => {
+=======
+
+  const handleClickCadastro = () => {
+
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
     setValorError(valor ? null : "Valor é obrigatório!");
@@ -62,6 +71,10 @@ const VisualizarAgendamento: React.FC = () => {
   }
 
   const handleClickAlterar = () => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
     setValorError(valor ? null : "Valor é obrigatório!");
@@ -99,6 +112,7 @@ const VisualizarAgendamento: React.FC = () => {
     setTipoProcedimento(1);
   }
 
+<<<<<<< HEAD
   function limparFiltros() {
     setFilterNome('');
     setFilterDataInicial(null);
@@ -185,6 +199,8 @@ const VisualizarAgendamento: React.FC = () => {
       });
   };
 
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   const handleDelete = () => {
     if (deletingIndex !== undefined) {
       const apiUrl = `${Config.baseUrl}/api/Agendamentos/${deletingIndex}`;
@@ -235,6 +251,7 @@ const VisualizarAgendamento: React.FC = () => {
     return `${ano}-${mes}-${dia}T${horas}:${minutos}`;
   };
 
+<<<<<<< HEAD
   const getCurrentDate = () => {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
@@ -244,6 +261,45 @@ const VisualizarAgendamento: React.FC = () => {
   };
 
   useEffect(run as any, [refresh]);
+=======
+  useEffect(() => {
+    const run = () => {
+      const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
+
+      axios.get(apiUrl)
+        .then((response) => {
+          const modifiedData = response.data.map((item: any) => {
+            const dataHoraAgendada = new Date(item.dataHoraAgendada);
+
+            const formatoDataHora: Intl.DateTimeFormatOptions = {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            };
+
+            return {
+              Nome: item.nome,
+              id: item.id,
+              Descrição: item.descricao,
+              "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
+              'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
+              Valor: ` R$ ${item.valor}`,
+              Tempo: item.tempo,
+            };
+          });
+
+          setData(modifiedData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar agendamentos:', error);
+        });
+    };
+
+    run();
+  }, [refresh]);
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   return (
     <div className={styles.cadastroContainer}>
@@ -260,6 +316,7 @@ const VisualizarAgendamento: React.FC = () => {
             <button style={{ marginLeft: '1rem' }} onClick={() => setIsModalOpen(false)}>Cancelar</button>
           </div>
         </Modal>
+<<<<<<< HEAD
         <Modal
           className={styles.modal}
           isOpen={isFilterModalOpen}
@@ -304,6 +361,11 @@ const VisualizarAgendamento: React.FC = () => {
               <span className={styles.titleVisualizar}>{data.length === 1 ? 'Agendamento' : 'Agendamentos'}</span>
               <button className={styles.filterButton} onClick={() => setIsFilterModalOpen(true)}>Filtro</button>
             </div>
+=======
+        {data.length === 0 ? <span className={styles.titleVisualizar}>Sem agendamentos para serem exibidos</span> :
+          <div>
+            <span className={styles.titleVisualizar}>{data.length === 1 ? 'Agendamento' : 'Agendamentos'}</span>
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
             <div className={styles.contentTable}>
               <Table
                 data={data}
@@ -397,4 +459,8 @@ const VisualizarAgendamento: React.FC = () => {
   );
 };
 
+<<<<<<< HEAD
 export default VisualizarAgendamento;
+=======
+export default VisualizarAgendamento;
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55

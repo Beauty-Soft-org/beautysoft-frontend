@@ -12,7 +12,11 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data, onDelete, onEdit }) => {
+<<<<<<< HEAD
   const columns = data?.length > 0 ? Object.keys(data[0]) : [];
+=======
+  const columns = data.length > 0 ? Object.keys(data[0]) : [];
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   const filteredColumns = columns.filter(column => column !== 'id');
 
@@ -21,7 +25,11 @@ const Table: React.FC<TableProps> = ({ data, onDelete, onEdit }) => {
       <table className={styles.table}>
         <thead>
           <tr className={styles.tr}>
+<<<<<<< HEAD
             {filteredColumns?.map((column) => (
+=======
+            {filteredColumns.map((column) => (
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
               <th key={column} className={styles.th}>{column}</th>
             ))}
             {(onDelete || onEdit) &&
@@ -30,9 +38,15 @@ const Table: React.FC<TableProps> = ({ data, onDelete, onEdit }) => {
           </tr>
         </thead>
         <tbody>
+<<<<<<< HEAD
           {data?.map((row, rowIndex) => (
             <tr key={rowIndex} className={styles.tr}>
               {filteredColumns?.map((column, colIndex) => (
+=======
+          {data.map((row, rowIndex) => (
+            <tr key={rowIndex} className={styles.tr}>
+              {filteredColumns.map((column, colIndex) => (
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
                 <td className={styles.td} key={colIndex}>{row[column]}</td>
               ))}
               {(onDelete || onEdit) &&

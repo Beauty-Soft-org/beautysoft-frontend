@@ -102,6 +102,7 @@ const Procedimentos: React.FC = () => {
     setImagem(null);
   }
 
+<<<<<<< HEAD
   const run = () => {
     const apiUrl = `${Config.baseUrl}/api/Procedimento`;
 
@@ -126,6 +127,8 @@ const Procedimentos: React.FC = () => {
       });
   };
 
+=======
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   const handleDelete = () => {
     if (deletingIndex !== undefined) {
       const apiUrl = `${Config.baseUrl}/api/Procedimento/${deletingIndex}`;
@@ -166,7 +169,37 @@ const Procedimentos: React.FC = () => {
     limpar();
   }
 
+<<<<<<< HEAD
   useEffect(run as any, [refresh]);
+=======
+  useEffect(() => {
+    const run = () => {
+      const apiUrl = `${Config.baseUrl}/api/Procedimento`;
+
+      axios.get(apiUrl)
+        .then((response) => {
+          const modifiedData = response.data.map((item: any) => {
+            return {
+              Nome: item.nome,
+              id: item.id,
+              Descrição: item.descricao,
+              "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
+              Imagem: item.imagem,
+              Valor: ` R$ ${item.valor}`,
+              Tempo: item.tempo,
+            };
+          });
+
+          setData(modifiedData);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar procedimentos:', error);
+        });
+    };
+
+    run();
+  }, [refresh]);
+>>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   return (
     <div className={styles.cadastroContainer}>
