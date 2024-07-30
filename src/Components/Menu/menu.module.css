@@ -1,0 +1,249 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 25%;
+
+    align-items: center;
+    gap: 1.5rem;
+    padding-left: 4rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    .more:hover {
+      cursor: pointer;
+      color: rgb(27, 20, 100);
+    }
+
+    .link {
+      text-decoration: none;
+      color: rgb(27, 20, 100);
+    }
+  }
+
+  .nameMenu {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    line-height: 0;
+    padding-top: 5%;
+    text-align: center;
+    width: 50%;
+    font-family: cursive;
+    font-size: large;
+    color: rgb(27, 20, 100);
+  }
+
+  .menuLogin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    width: 25%;
+    color: rgb(27, 20, 100);
+  }
+
+  .iconPerfil {
+    text-decoration: none;
+    color: rgb(27, 20, 100);
+    margin-left: auto;
+  }
+
+  .dropdownMoreContent {
+    position: absolute;
+    font-size: 1rem;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    width: 13.3rem;
+
+    .dropdownLinkProcedimentos {
+      text-decoration: none;
+      color: rgb(27, 20, 100);
+      text-align: left;
+      font-weight: 400;
+      padding: .2rem 1rem .2rem 1rem;
+    }
+
+    .dropdownLinkVoucher {
+      text-decoration: none;
+      color: rgb(27, 20, 100);
+      text-align: left;
+      font-weight: 400;
+      padding: .2rem 1rem .2rem 1rem;
+    }
+  }
+
+  .dropdown,
+  .dropdownLogoff {
+    position: relative;
+    margin-right: auto;
+    color: rgb(27, 20, 100);
+  }
+
+  .iconButton:hover {
+    cursor: pointer;
+  }
+
+  .dropdownIcon {
+    cursor: pointer;
+  }
+
+  .dropdownLinkA,
+  .dropdownLinkB {
+    text-decoration: none;
+    color: rgb(27, 20, 100);
+    text-align: left;
+    font-weight: 400;
+    padding: 0rem 1rem 0rem 1rem;
+  }
+
+  .dropdownLinkA {
+    padding-top: .2rem;
+    padding-bottom: .3rem;
+  }
+
+  .dropdownLinkB {
+    padding-bottom: .5rem;
+  }
+
+  .dropdownLinkA:hover,
+  .dropdownLinkB:hover {
+    color: blue;
+    cursor: pointer;
+  }
+
+  .dropdownContent {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1324px) {
+  .header {
+    flex-direction: row;
+    width: 100% !important;
+
+    .iconPerfil {
+      display: flex;
+      width: 1.7rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-top: 0rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin-top: 0rem;
+    }
+
+    .link {
+      margin-top: -1rem;
+    }
+
+    .menuLogin {
+      font-size: .98rem !important;
+      min-width: 0 !important;
+      padding-left: .5rem !important;
+      gap: .5rem;
+      text-align: center !important;
+      margin-top: -3rem;
+    }
+
+    .nameMenu {
+      margin: 0 !important;
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column !important;
+    font-size: 1rem !important;
+    align-items: normal !important;
+    text-align: left !important;
+    gap: 1rem !important;
+    padding-left: 1rem !important;
+    font-weight: 500;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .dropdown {
+    margin: 0 !important;
+    margin-top: -.9rem !important;
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: row;
+    width: 100% !important;
+
+    .iconPerfil {
+      display: flex;
+      width: 1.7rem;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      margin-top: 1.5rem;
+    }
+
+    h4 {
+      font-size: .9rem;
+      margin-top: .3rem;
+    }
+
+    .link {
+      margin-top: -1rem;
+    }
+
+    .menuLogin {
+      font-size: .98rem !important;
+      min-width: 0 !important;
+      padding-left: .5rem !important;
+      gap: .5rem;
+      text-align: center !important;
+      margin-top: -3rem;
+    }
+
+    .nameMenu {
+      margin: 0 !important;
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column !important;
+    font-size: 1rem !important;
+    align-items: normal !important;
+    text-align: left !important;
+    gap: 1rem !important;
+    padding-left: 1rem !important;
+    font-weight: 500;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .dropdown {
+    margin: 0 !important;
+    margin-top: -.9rem !important;
+  }
+}
