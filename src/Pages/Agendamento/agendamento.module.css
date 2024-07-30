@@ -1,0 +1,229 @@
+ td {
+   border: none;
+   background-color: white;
+ }
+
+ .modal {
+   background-color: white;
+   border-radius: 8px;
+   padding: 1rem;
+   width: 30%;
+   margin: auto;
+   box-shadow: 0 0 .4rem .1rem rgba(0, 0, 0, 0.1);
+   margin-top: 10rem;
+   min-width: 20rem;
+ }
+
+ .modal h2 {
+   font-family: cursive;
+   font-size: 1.2rem;
+   color: #58538B;
+   margin-top: .3rem !important;
+ }
+
+ .contentButtonsModal {
+   text-align: center;
+   width: 100%;
+ }
+
+ .modal button {
+   margin-top: 1rem;
+   padding: .5rem 1rem;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 16px;
+   color: white;
+   background-color: #58538B;
+ }
+
+ .modal button:hover {
+   opacity: 0.9;
+ }
+
+ th {
+   background-color: white;
+   font-weight: 500;
+   border: none;
+ }
+
+ .agendamentoContainer {
+   width: 50%;
+   margin-left: 25%;
+
+   .link {
+     text-decoration: none;
+     color: black;
+     display: flex;
+     margin-top: 3rem;
+
+     &:hover {
+       opacity: 70%;
+     }
+   }
+
+   .contentTitle {
+     border-bottom: 1px solid black;
+     display: flex;
+     flex-direction: column;
+     padding-top: 1.5rem;
+
+     .title {
+       font-size: 2.5rem;
+       font-family: cursive;
+       font-weight: 500;
+       margin-bottom: 0;
+     }
+   }
+ }
+
+ .agendamentoForm {
+   width: 50%;
+   margin-left: 25%;
+   margin-top: 4rem;
+
+   .contentTitleForm {
+     border-bottom: 1px solid black;
+     display: flex;
+     flex-direction: column;
+     width: 70%;
+
+     .titleForm {
+       font-size: 1.5rem;
+       font-family: cursive;
+       font-weight: 400;
+       margin-bottom: 0;
+       padding-bottom: 1rem;
+     }
+   }
+
+   .contentCalendar {
+     display: flex;
+     gap: 1rem;
+
+     .calendar {
+       margin-top: 1rem;
+     }
+
+     .titleCalendar {
+       margin-top: 1.75rem;
+       font-size: 1.1rem;
+     }
+   }
+
+   .containerDetails {
+     height: 100%;
+   }
+
+   .contentDetails {
+     border-bottom: 1px solid black;
+     height: 100%;
+
+     .buttonDetails {
+       padding: .5rem .5rem 1rem .5rem;
+       font-size: 1rem;
+       background-color: white;
+       border: none;
+       cursor: pointer;
+       min-width: 15rem;
+       margin-left: -1.2rem;
+     }
+
+     .iconDetails {
+       font-size: 1rem;
+       margin-left: 2rem;
+     }
+
+     .infoDetails {
+       margin: 0;
+       margin-left: .3rem;
+     }
+   }
+
+   .buttonConfirm {
+     background-color: #58538B;
+     border: none;
+     padding: .7rem 4.85rem .7rem 4.85rem;
+     color: white;
+     font-size: 1rem;
+     margin-top: 1rem;
+     cursor: pointer;
+     transition: background-color 2s ease;
+     letter-spacing: .05rem;
+
+     &:hover {
+       background-color: #746EB8;
+       transition: 1.5s;
+     }
+   }
+
+   .containerHorarios {
+    min-width: 20rem !important;
+   }
+
+   .contentHorarios {
+     display: flex;
+     gap: 1rem;
+     max-height: 22rem;
+     overflow-y: auto;
+     margin-bottom: 1rem;
+
+     .column {
+       padding: .5rem 3rem .5rem 3rem;
+       margin-bottom: 1rem;
+       border: 1px solid #58538B;
+       cursor: pointer;
+       background-color: #EEEDF3;
+     }
+
+     .columnSelected {
+       padding: .5rem 3rem .5rem 3rem;
+       margin-bottom: 1rem;
+       border: 1px solid;
+       cursor: pointer;
+     }
+   }
+ }
+
+ @media (max-width: 768px) {
+   .agendamentoForm {
+     width: 85% !important;
+     text-align: center !important;
+     margin: auto !important;
+
+     .contentTitleForm {
+       width: 85% !important;
+       margin: auto !important;
+     }
+   }
+
+   .agendamentoContainer {
+     width: 85% !important;
+     margin: auto !important;
+     text-align: center !important;
+   }
+
+   .contentCalendar {
+     display: flex;
+     margin: auto !important;
+     flex-direction: column !important;
+     width: 85% !important;
+     text-align: center !important;
+   }
+
+   .buttonConfirm {
+     margin-bottom: 1rem !important;
+   }
+
+   .containerHorarios {
+     margin: auto !important;
+     text-align: center !important;
+   }
+
+   .contentHorarios {
+     display: flex !important;
+     width: 100% !important;
+     margin: auto !important;
+     text-align: center !important;
+   }
+ }

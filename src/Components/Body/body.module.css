@@ -1,0 +1,332 @@
+.body {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+  .imgBody {
+    width: 100%;
+    min-width: 65rem;
+  }
+
+  .meusTratamentos2 {
+    display: none;
+  }
+
+  .contentImg1 {
+    width: 50%;
+    min-width: 65rem;
+    height: 8rem;
+    background-color: #1B1464;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5rem;
+    display: flex;
+    position: relative;
+
+    .contentP1Text {
+      font-size: 3rem;
+      color: white;
+      align-self: center;
+      margin: auto;
+      font-family: cursive;
+      padding-top: .5rem;
+    }
+
+    .contentP2Text {
+      font-size: 5.5rem;
+      color: white;
+      font-family: cursive;
+      margin: 0 !important;
+    }
+
+    .contentP3Text {
+      font-size: 1.5rem;
+      color: white;
+      align-self: center;
+      margin: auto;
+      padding-top: .5rem;
+      font-family: cursive;
+    }
+
+    .contentButton {
+      background-color: #DC2244;
+      width: 7rem;
+      height: 3rem;
+      margin: auto;
+      color: white;
+      font-size: 1.1rem;
+
+      .textButton {
+        margin: 0;
+        padding-top: .6rem;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+        color: white;
+      }
+    }
+
+    .contentButton:hover {
+      cursor: pointer;
+      background-color: #93172D;
+      transition: 1s;
+    }
+  }
+
+  .contentImg2 {
+    width: 100%;
+    display: flex;
+    margin-top: 2.5rem !important;
+    height: 43rem;
+
+    .img2_1Body {
+      width: 50%;
+      margin-left: 2.5%;
+    }
+
+    .img2Body {
+      width: 45%;
+
+      .titleImg2 {
+        margin: 10rem auto;
+        font-weight: 500;
+        font-size: 3rem;
+        margin-bottom: 2rem;
+        font-family: cursive;
+        text-align: center;
+        color: #1B1464;
+      }
+
+      .textImg2 {
+        width: 60%;
+        font-size: 2rem;
+        margin: auto;
+        color: #1B1464;
+        margin-top: 2rem;
+        font-family: cursive;
+        max-height: 16rem;
+        overflow: auto;
+      }
+
+      .lineImg2 {
+        width: 25%;
+        height: 1px;
+        display: flex;
+        margin: auto;
+        background-color: #1B1464;
+      }
+    }
+  }
+
+  .content3 {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+
+    .titleContent3 {
+      font-size: 5rem;
+      color: rgb(27, 20, 100);
+      font-family: cursive;
+    }
+
+    .textContent3 {
+      width: 10%;
+      color: rgb(27, 20, 100);
+      font-family: cursive;
+      font-size: 1.2rem;
+    }
+  }
+
+  .imagensText {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-right: auto;
+    margin-left: 2.5%;
+    background-color: #EDEBEB;
+    padding-top: 4rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .buttonPagination {
+    height: 0rem;
+    opacity: 70%;
+    border: none;
+    cursor: pointer;
+    margin-top: 12%;
+  }
+
+  .buttonPagination:hover {
+    opacity: 100%;
+    transition: 1s;
+  }
+
+  .sobre {
+    width: 100%;
+    height: 50rem;
+    background-color: #1B1464;
+  }
+
+  .imgSobre {
+    width: 15rem;
+    height: 20rem;
+    margin: auto;
+    background-position: center;
+    background-position-y: 10rem;
+  }
+
+  .titleSobre {
+    color: white;
+    margin: auto;
+    font-weight: 500;
+    font-size: 4rem;
+    margin-bottom: 3rem;
+    font-family: cursive;
+    text-align: center;
+  }
+
+  .textSobre {
+    color: white;
+    width: 40%;
+    font-size: 1.5rem;
+    margin: auto;
+  }
+
+  .footer {
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .body {
+
+    .sobre {
+      height: 30rem;
+      padding-top: 4rem;
+    }
+
+    .imgSobre {
+      display: none;
+    }
+
+    .titleSobre {
+      font-size: 3rem;
+    }
+
+    .meusTratamentos2 {
+      display: flex;
+    }
+
+    .meusTratamentos {
+      display: none;
+    }
+
+    .textSobre {
+      font-size: 1rem;
+      width: 80%;
+      background-color: white;
+      padding: 1rem;
+      color: #1B1464;
+    }
+
+    .footer {
+      width: 100%;
+    }
+
+    .imgBody {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .img2_1Body {
+      display: none;
+    }
+
+    .contentImg2 {
+      margin-top: 2.5rem !important;
+    }
+
+    .img2Body {
+      width: 100% !important;
+
+      .titleImg2 {
+        margin: 10rem auto;
+        font-weight: 500;
+        font-size: 2rem !important;
+        margin-bottom: 2rem;
+        font-family: cursive;
+        text-align: center;
+        color: #1B1464;
+      }
+
+      .textImg2 {
+        font-size: 1.2rem !important;
+        color: #1B1464;
+        margin-top: 2rem;
+        font-family: cursive;
+        overflow: auto;
+      }
+    }
+
+    .contentImg1 {
+      min-width: 0;
+      width: 100%;
+
+      .contentP1Text {
+        font-size: 1rem;
+      }
+
+      .contentP2Text {
+        font-size: 3rem;
+        color: white;
+        font-family: cursive;
+        margin: 0 !important;
+        padding-top: 1.8rem;
+      }
+
+      .contentP3Text {
+        font-size: 1rem;
+        max-width: 10rem !important;
+        overflow: auto !important;
+      }
+
+      .contentButton {
+        background-color: #DC2244;
+        width: 5rem;
+        height: 2.5rem;
+        margin: auto;
+        color: white;
+        font-size: 1rem;
+
+        .textButton {
+          margin: 0;
+          padding-top: .45rem;
+          height: 100%;
+          width: 100%;
+          text-decoration: none;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .content3 {
+    width: 100% !important;
+
+    .titleContent3 {
+      font-size: 2rem !important;
+    }
+
+    .textContent3 {
+      color: rgb(27, 20, 100);
+      font-family: cursive;
+      font-size: 1rem !important;
+    }
+  }
+}
