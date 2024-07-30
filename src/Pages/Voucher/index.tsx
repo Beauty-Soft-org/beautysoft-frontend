@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './voucher.module.css';
 import axios from 'axios';
-import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia'
+import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia';
 import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import Config from '../../Config.json';
@@ -10,18 +10,17 @@ import Modal from 'react-modal';
 const Voucher: React.FC = () => {
   const [nome, setNome] = useState<string>('');
   const [descricao, setDescricao] = useState<string>('');
-  const [data, setData] = useState([]);
-  const [row, setRow] = useState<number>();
+  const [data, setData] = useState<any[]>([]);
+  const [row, setRow] = useState<number | undefined>();
   const [habilitado, setHabilitado] = useState<boolean>(true);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [alterar, setAlterar] = useState<boolean>(false);
   const [nomeError, setNomeError] = useState<string | null>(null);
   const [descricaoError, setDescricaoError] = useState<string | null>(null);
-  const [deletingIndex, setDeletingIndex] = useState<number>();
+  const [deletingIndex, setDeletingIndex] = useState<number | undefined>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleClickCadastro = () => {
-
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
 
@@ -29,14 +28,14 @@ const Voucher: React.FC = () => {
       nome,
       descricao,
       campo: habilitado,
-    }
+    };
 
     const apiUrl = `${Config.baseUrl}/api/Voucher`;
 
     if (nome && descricao) {
       axios.post(apiUrl, filter)
-        .then((response) => {
-          setRefresh(!refresh)
+        .then(() => {
+          setRefresh(prev => !prev);
           limpar();
         })
         .catch((error) => {
@@ -46,22 +45,21 @@ const Voucher: React.FC = () => {
   };
 
   const handleClickAlterar = () => {
-
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
 
     const filter = {
       nome,
       descricao,
-      campo: habilitado
-    }
+      campo: habilitado,
+    };
 
     const apiUrl = `${Config.baseUrl}/api/Voucher/${row}`;
 
     axios.put(apiUrl, filter)
-      .then((_response) => {
+      .then(() => {
         console.log('Voucher alterado com sucesso!');
-        setRefresh(!refresh);
+        setRefresh(prev => !prev);
         setAlterar(false);
         limpar();
       })
@@ -70,24 +68,20 @@ const Voucher: React.FC = () => {
       });
   };
 
-<<<<<<< HEAD
-  const run = () => {
+  const fetchData = () => {
     const apiUrl = `${Config.baseUrl}/api/Voucher`;
 
     axios.get(apiUrl)
       .then((response) => {
         console.log('Vouchers exibidos com sucesso!');
-        const modifiedData = response.data.map((item: any) => {
-          return {
-            Nome: item.nome,
-            id: item.id,
-            Descrição: item.descricao,
-            Habilitado: item.campo.toString(),
-          };
-        });
+        const modifiedData = response.data.map((item: any) => ({
+          Nome: item.nome,
+          id: item.id,
+          Descrição: item.descricao,
+          Habilitado: item.campo.toString(),
+        }));
 
-        console.log('modifiedData', modifiedData)
-
+        console.log('modifiedData', modifiedData);
         setData(modifiedData);
       })
       .catch((error) => {
@@ -95,33 +89,31 @@ const Voucher: React.FC = () => {
       });
   };
 
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
-  function limpar() {
+  const limpar = () => {
     setNome('');
     setDescricao('');
     setHabilitado(true);
-  }
+  };
 
   const handleDelete = () => {
     if (deletingIndex !== undefined) {
       const apiUrl = `${Config.baseUrl}/api/Voucher/${deletingIndex}`;
 
       axios.delete(apiUrl)
-        .then((_response) => {
-          setRefresh(!refresh);
+        .then(() => {
+          setRefresh(prev => !prev);
           setIsModalOpen(false);
         })
         .catch((error) => {
-          console.error('Erro ao deletar agendamento:', error);
+          console.error('Erro ao deletar voucher:', error);
         });
     }
-  }
+  };
 
-  function voltarCadastro() {
+  const voltarCadastro = () => {
     setAlterar(false);
     limpar();
-  }
+  };
 
   const handleEdit = (index: number) => {
     setAlterar(true);
@@ -140,37 +132,9 @@ const Voucher: React.FC = () => {
       });
   };
 
-<<<<<<< HEAD
-  useEffect(run as any, [refresh]);
-=======
   useEffect(() => {
-    const run = () => {
-      const apiUrl = `${Config.baseUrl}/api/Voucher`;
-
-      axios.get(apiUrl)
-        .then((response) => {
-          console.log('Vouchers exibidos com sucesso!');
-          const modifiedData = response.data.map((item: any) => {
-            return {
-              Nome: item.nome,
-              id: item.id,
-              Descrição: item.descricao,
-              Habilitado: item.campo.toString(),
-            };
-          });
-
-          console.log('modifiedData', modifiedData)
-
-          setData(modifiedData);
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar vouchers:', error);
-        });
-    };
-
-    run();
+    fetchData();
   }, [refresh]);
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   return (
     <div className={styles.cadastroContainer}>
@@ -224,14 +188,14 @@ const Voucher: React.FC = () => {
         </div>
         <div className={styles.formGroup}>
           <label>Habilitado:</label>
-          {(habilitado === true ?
+          {habilitado ?
             <LiaToggleOnSolid className={styles.toggle} onClick={() => setHabilitado(false)} /> :
-            <LiaToggleOffSolid className={styles.toggle} onClick={() => setHabilitado(true)} />)}
+            <LiaToggleOffSolid className={styles.toggle} onClick={() => setHabilitado(true)} />}
         </div>
-        <button className={styles.cadastroButton} onClick={alterar === true ? handleClickAlterar : handleClickCadastro}>
-          {alterar === true ? <span>Alterar</span> : <span>Cadastrar</span>}
+        <button className={styles.cadastroButton} onClick={alterar ? handleClickAlterar : handleClickCadastro}>
+          {alterar ? <span>Alterar</span> : <span>Cadastrar</span>}
         </button>
-        {alterar === true ?
+        {alterar ?
           <button onClick={voltarCadastro} className={styles.voltarButton}>
             Voltar para o cadastro
           </button> :

@@ -7,11 +7,8 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.css';
-<<<<<<< HEAD
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
 import { addLocale } from 'primereact/api';
 

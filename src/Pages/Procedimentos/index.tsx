@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './procedimentos.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -14,21 +14,21 @@ const Procedimentos: React.FC = () => {
   const [descricao, setDescricao] = useState<string>('');
   const [tipoProcedimento, setTipoProcedimento] = useState<number>(1);
   const [imagem, setImagem] = useState<File | null>(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   const [alterar, setAlterar] = useState<boolean>(false);
-  const [row, setRow] = useState<number>();
+  const [row, setRow] = useState<number | undefined>();
   const [nomeError, setNomeError] = useState<string | null>(null);
   const [tempoError, setTempoError] = useState<string | null>(null);
   const [descricaoError, setDescricaoError] = useState<string | null>(null);
   const [valorError, setValorError] = useState<string | null>(null);
   const [habilitado, setHabilitado] = useState<boolean>(true);
   const [refresh, setRefresh] = useState<boolean>(false);
-  const [deletingIndex, setDeletingIndex] = useState<number>();
+  const [deletingIndex, setDeletingIndex] = useState<number | undefined>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      if (e.target.files && e.target.files[0].type.startsWith('image/')) {
+      if (e.target.files[0].type.startsWith('image/')) {
         setImagem(e.target.files[0]);
       } else {
         setImagem(null);
@@ -37,7 +37,6 @@ const Procedimentos: React.FC = () => {
   };
 
   const handleClickCadastro = () => {
-
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
     setValorError(valor ? null : "Valor é obrigatório!");
@@ -50,22 +49,21 @@ const Procedimentos: React.FC = () => {
       tempo,
       imagem: imagem?.name?.toString(),
       tipoProcedimento,
-    }
+    };
 
     const apiUrl = `${Config.baseUrl}/api/Procedimento`;
 
     axios.post(apiUrl, filter)
-      .then((_response) => {
-        setRefresh(!refresh)
+      .then(() => {
+        setRefresh(!refresh);
         limpar();
       })
       .catch((error) => {
         console.error('Erro ao cadastrar procedimento:', error);
       });
-  }
+  };
 
   const handleClickAlterar = () => {
-
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
     setValorError(valor ? null : "Valor é obrigatório!");
@@ -78,12 +76,12 @@ const Procedimentos: React.FC = () => {
       tempo,
       imagem: imagem?.name?.toString() || imagem,
       tipoProcedimento,
-    }
+    };
 
     const apiUrl = `${Config.baseUrl}/api/Procedimento/${row}`;
 
     axios.put(apiUrl, filter)
-      .then((_response) => {
+      .then(() => {
         setRefresh(!refresh);
         setAlterar(false);
         limpar();
@@ -91,50 +89,45 @@ const Procedimentos: React.FC = () => {
       .catch((error) => {
         console.error('Erro ao alterar procedimento:', error);
       });
-  }
+  };
 
-  function limpar() {
+  const limpar = () => {
     setNome('');
     setDescricao('');
     setValor('');
     setTempo('');
     setTipoProcedimento(1);
     setImagem(null);
-  }
+  };
 
-<<<<<<< HEAD
-  const run = () => {
+  const fetchData = useCallback(() => {
     const apiUrl = `${Config.baseUrl}/api/Procedimento`;
 
     axios.get(apiUrl)
       .then((response) => {
-        const modifiedData = response.data.map((item: any) => {
-          return {
-            Nome: item.nome,
-            id: item.id,
-            Descrição: item.descricao,
-            "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
-            Imagem: item.imagem,
-            Valor: ` R$ ${item.valor}`,
-            Tempo: item.tempo,
-          };
-        });
-
+        const modifiedData = response.data.map((item: any) => ({
+          Nome: item.nome,
+          id: item.id,
+          Descrição: item.descricao,
+          "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
+          Imagem: item.imagem,
+          Valor: ` R$ ${item.valor}`,
+          Tempo: item.tempo,
+        }));
         setData(modifiedData);
       })
       .catch((error) => {
         console.error('Erro ao buscar procedimentos:', error);
       });
-  };
+  }, []);
 
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+
   const handleDelete = () => {
     if (deletingIndex !== undefined) {
       const apiUrl = `${Config.baseUrl}/api/Procedimento/${deletingIndex}`;
 
       axios.delete(apiUrl)
-        .then((_response) => {
+        .then(() => {
           setRefresh(!refresh);
           setIsModalOpen(false);
         })
@@ -142,7 +135,7 @@ const Procedimentos: React.FC = () => {
           console.error('Erro ao deletar procedimento:', error);
         });
     }
-  }
+  };
 
   const handleEdit = (index: number) => {
     setAlterar(true);
@@ -164,42 +157,14 @@ const Procedimentos: React.FC = () => {
       });
   };
 
-  function voltarCadastro() {
+  const voltarCadastro = () => {
     setAlterar(false);
     limpar();
-  }
+  };
 
-<<<<<<< HEAD
-  useEffect(run as any, [refresh]);
-=======
   useEffect(() => {
-    const run = () => {
-      const apiUrl = `${Config.baseUrl}/api/Procedimento`;
-
-      axios.get(apiUrl)
-        .then((response) => {
-          const modifiedData = response.data.map((item: any) => {
-            return {
-              Nome: item.nome,
-              id: item.id,
-              Descrição: item.descricao,
-              "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
-              Imagem: item.imagem,
-              Valor: ` R$ ${item.valor}`,
-              Tempo: item.tempo,
-            };
-          });
-
-          setData(modifiedData);
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar procedimentos:', error);
-        });
-    };
-
-    run();
-  }, [refresh]);
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+    fetchData();
+  }, [fetchData]);
 
   return (
     <div className={styles.cadastroContainer}>
@@ -220,22 +185,20 @@ const Procedimentos: React.FC = () => {
           <div>
             <span className={styles.titleVisualizar}>{data.length === 1 ? 'Procedimento' : 'Procedimentos'}</span>
             <div className={styles.contentTable}>
-              <div className={styles.contentTable}>
-                <Table
-                  data={data}
-                  onDelete={(index: number) => {
-                    setDeletingIndex(index);
-                    setIsModalOpen(true);
-                  }}
-                  onEdit={handleEdit}
-                />
-              </div>
+              <Table
+                data={data}
+                onDelete={(index: number) => {
+                  setDeletingIndex(index);
+                  setIsModalOpen(true);
+                }}
+                onEdit={handleEdit}
+              />
             </div>
           </div>
         }
       </div>
       <div className={styles.cadastroBox}>
-        {alterar === true ? <h2>Alterar Procedimento</h2> : <h2>Cadastro de Procedimentos</h2>}
+        {alterar ? <h2>Alterar Procedimento</h2> : <h2>Cadastro de Procedimentos</h2>}
         <div className={styles.formGroup}>
           <label>Nome:</label>
           {nomeError && <span className={styles.errorText}>{nomeError}</span>}
@@ -275,13 +238,7 @@ const Procedimentos: React.FC = () => {
           <label>Tipo de Procedimento:</label>
           <select
             value={tipoProcedimento}
-            onChange={(e) => {
-              if (e.target.value === "1") {
-                setTipoProcedimento(1);
-              } else if (e.target.value === "2") {
-                setTipoProcedimento(2);
-              }
-            }}
+            onChange={(e) => setTipoProcedimento(Number(e.target.value))}
           >
             <option className={styles.option} value="1">Corporal</option>
             <option className={styles.option} value="2">Facial</option>
@@ -297,14 +254,14 @@ const Procedimentos: React.FC = () => {
         </div>
         <div className={styles.formGroup}>
           <label>Habilitado:</label>
-          {(habilitado === true ?
+          {habilitado ?
             <LiaToggleOnSolid className={styles.toggle} onClick={() => setHabilitado(false)} /> :
-            <LiaToggleOffSolid className={styles.toggle} onClick={() => setHabilitado(true)} />)}
+            <LiaToggleOffSolid className={styles.toggle} onClick={() => setHabilitado(true)} />}
         </div>
-        <button className={styles.cadastroButton} onClick={alterar === true ? handleClickAlterar : handleClickCadastro}>
-          {alterar === true ? <span>Alterar</span> : <span>Cadastrar</span>}
+        <button className={styles.cadastroButton} onClick={alterar ? handleClickAlterar : handleClickCadastro}>
+          {alterar ? <span>Alterar</span> : <span>Cadastrar</span>}
         </button>
-        {alterar === true ?
+        {alterar ?
           <button onClick={voltarCadastro} className={styles.voltarButton}>
             Voltar para o cadastro
           </button> :

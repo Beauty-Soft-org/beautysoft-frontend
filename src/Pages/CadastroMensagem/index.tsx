@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './cadastroMensagem.module.css';
 import axios from 'axios';
-import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia'
+import { LiaToggleOffSolid, LiaToggleOnSolid } from 'react-icons/lia';
 import { Link } from 'react-router-dom';
 import Table from '../../Components/Table';
 import Config from '../../Config.json';
@@ -10,7 +10,7 @@ import Modal from 'react-modal';
 const CadastroMensagem: React.FC = () => {
   const [nome, setNome] = useState<string>('');
   const [descricao, setDescricao] = useState<string>('');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   const [row, setRow] = useState<number>();
   const [habilitado, setHabilitado] = useState<boolean>(true);
   const [refresh, setRefresh] = useState<boolean>(false);
@@ -34,12 +34,11 @@ const CadastroMensagem: React.FC = () => {
       case 5:
         return "Sobre Vitória Garavazzo Estética Avançada";
       default:
-        break;
+        return "";
     }
   }
 
   const handleClickCadastro = () => {
-
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
 
@@ -47,15 +46,16 @@ const CadastroMensagem: React.FC = () => {
       nome,
       descricao,
       habilitado,
-      tipoMensagemTemporaria: tipoMensagemTemporaria
-    }
+      tipoMensagemTemporaria,
+    };
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
 
     if (nome && descricao) {
-      axios.post(apiUrl, filter)
+      axios
+        .post(apiUrl, filter)
         .then(() => {
-          setRefresh(!refresh)
+          setRefresh(!refresh);
           limpar();
         })
         .catch((error) => {
@@ -65,7 +65,6 @@ const CadastroMensagem: React.FC = () => {
   };
 
   const handleClickAlterar = () => {
-
     setNomeError(nome ? null : "Nome é obrigatório!");
     setDescricaoError(descricao ? null : "Descrição é obrigatória!");
 
@@ -74,12 +73,13 @@ const CadastroMensagem: React.FC = () => {
       descricao,
       tipoMensagemTemporaria,
       habilitado: habilitado,
-    }
+    };
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${row}`;
 
     if (nome && descricao) {
-      axios.put(apiUrl, filter)
+      axios
+        .put(apiUrl, filter)
         .then((_response) => {
           setRefresh(!refresh);
           setAlterar(false);
@@ -91,15 +91,14 @@ const CadastroMensagem: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
-  const run = () => {
+  const run = useCallback(() => {
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
 
-    axios.get(apiUrl)
+    axios
+      .get(apiUrl)
       .then((response) => {
         console.log('Mensagens exibidas com sucesso!');
         const modifiedData = response.data.map((item: any) => {
-
           return {
             Nome: item.nome,
             id: item.id,
@@ -114,21 +113,21 @@ const CadastroMensagem: React.FC = () => {
       .catch((error) => {
         console.error('Erro ao buscar mensagens:', error);
       });
-  };
+  }, []);
 
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   function limpar() {
     setNome('');
     setDescricao('');
     setHabilitado(true);
+    setTipoMensagemTemporaria(1);
   }
 
   const handleDelete = () => {
     if (deletingIndex !== undefined) {
       const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${deletingIndex}`;
 
-      axios.delete(apiUrl)
+      axios
+        .delete(apiUrl)
         .then((_response) => {
           setRefresh(!refresh);
           setIsModalOpen(false);
@@ -137,7 +136,7 @@ const CadastroMensagem: React.FC = () => {
           console.error('Erro ao deletar mensagem:', error);
         });
     }
-  }
+  };
 
   function voltarCadastro() {
     setAlterar(false);
@@ -150,7 +149,8 @@ const CadastroMensagem: React.FC = () => {
 
     const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria/${index}`;
 
-    axios.get(apiUrl)
+    axios
+      .get(apiUrl)
       .then((response) => {
         setNome(response.data.nome);
         setTipoMensagemTemporaria(response.data.tipoMensagemTemporaria);
@@ -162,37 +162,10 @@ const CadastroMensagem: React.FC = () => {
       });
   };
 
-<<<<<<< HEAD
-  useEffect(run as any, [refresh]);
-=======
+  // Atualizar mensagens quando refresh muda
   useEffect(() => {
-    const run = () => {
-      const apiUrl = `${Config.baseUrl}/api/MensagemTemporaria`;
-
-      axios.get(apiUrl)
-        .then((response) => {
-          console.log('Mensagens exibidas com sucesso!');
-          const modifiedData = response.data.map((item: any) => {
-            return {
-              Nome: item.nome,
-              id: item.id,
-              Descrição: item.descricao,
-              "Tipo de Mensagem": consultarTipoMensagem(item.tipoMensagemTemporaria),
-              Habilitado: item.habilitado.toString(),
-            };
-          });
-
-          setData(modifiedData);
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar mensagens:', error);
-        });
-    };
-
     run();
-  }, [refresh]);
-
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+  }, [refresh, run]);
 
   return (
     <div className={styles.cadastroContainer}>
@@ -206,12 +179,18 @@ const CadastroMensagem: React.FC = () => {
           <h2>Tem certeza de que deseja excluir esta mensagem?</h2>
           <div className={styles.contentButtonsModal}>
             <button onClick={handleDelete}>Confirmar</button>
-            <button style={{ marginLeft: '1rem' }} onClick={() => setIsModalOpen(false)}>Cancelar</button>
+            <button style={{ marginLeft: '1rem' }} onClick={() => setIsModalOpen(false)}>
+              Cancelar
+            </button>
           </div>
         </Modal>
-        {data.length === 0 ? <span className={styles.titleVisualizar}>Sem mensagens para serem exibidas</span> :
+        {data.length === 0 ? (
+          <span className={styles.titleVisualizar}>Sem mensagens para serem exibidas</span>
+        ) : (
           <div>
-            <span className={styles.titleVisualizar}>{data.length === 1 ? 'Mensagem' : 'Mensagens'}</span>
+            <span className={styles.titleVisualizar}>
+              {data.length === 1 ? 'Mensagem' : 'Mensagens'}
+            </span>
             <div className={styles.contentTable}>
               <Table
                 data={data}
@@ -223,7 +202,7 @@ const CadastroMensagem: React.FC = () => {
               />
             </div>
           </div>
-        }
+        )}
       </div>
       <div className={styles.cadastroBox}>
         <h2>Cadastro de Mensagem</h2>
@@ -240,57 +219,54 @@ const CadastroMensagem: React.FC = () => {
         <div className={styles.formGroup}>
           <label>Descrição:</label>
           {descricaoError && <span className={styles.errorText}>{descricaoError}</span>}
-          <textarea
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
-          />
+          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} />
         </div>
         <div className={styles.formGroup}>
           <label>Tipo de Mensagem:</label>
           <select
             value={tipoMensagemTemporaria}
-            onChange={(e) => {
-              if (e.target.value === "1") {
-                setTipoMensagemTemporaria(1);
-              } else if (e.target.value === "2") {
-                setTipoMensagemTemporaria(2);
-              }
-              else if (e.target.value === "3") {
-                setTipoMensagemTemporaria(3);
-              }
-              else if (e.target.value === "4") {
-                setTipoMensagemTemporaria(4);
-              }
-              else if (e.target.value === "5") {
-                setTipoMensagemTemporaria(5);
-              }
-            }}
+            onChange={(e) => setTipoMensagemTemporaria(Number(e.target.value))}
           >
-            <option className={styles.option} value="1">Cupom</option>
-            <option className={styles.option} value="2">Informação</option>
-            <option className={styles.option} value="3">Tratamentos</option>
-            <option className={styles.option} value="4">Sobre mim</option>
-            <option className={styles.option} value="5">Sobre Vitória Garavazzo Estética Avançada</option>
+            <option className={styles.option} value="1">
+              Cupom
+            </option>
+            <option className={styles.option} value="2">
+              Informação
+            </option>
+            <option className={styles.option} value="3">
+              Tratamentos
+            </option>
+            <option className={styles.option} value="4">
+              Sobre mim
+            </option>
+            <option className={styles.option} value="5">
+              Sobre Vitória Garavazzo Estética Avançada
+            </option>
           </select>
         </div>
         <div className={styles.formGroup}>
           <label>Habilitado:</label>
-          {(habilitado === true ?
-            <LiaToggleOnSolid className={styles.toggle} onClick={() => setHabilitado(false)} /> :
-            <LiaToggleOffSolid className={styles.toggle} onClick={() => setHabilitado(true)} />)}
+          {habilitado ? (
+            <LiaToggleOnSolid className={styles.toggle} onClick={() => setHabilitado(false)} />
+          ) : (
+            <LiaToggleOffSolid className={styles.toggle} onClick={() => setHabilitado(true)} />
+          )}
         </div>
-        <button className={styles.cadastroButton} onClick={alterar === true ? handleClickAlterar : handleClickCadastro}>
-          {alterar === true ? <span>Alterar</span> : <span>Cadastrar</span>}
+        <button
+          className={styles.cadastroButton}
+          onClick={alterar ? handleClickAlterar : handleClickCadastro}
+        >
+          {alterar ? <span>Alterar</span> : <span>Cadastrar</span>}
         </button>
-        {alterar === true ?
+        {alterar ? (
           <button onClick={voltarCadastro} className={styles.voltarButton}>
             Voltar para o cadastro
-          </button> :
+          </button>
+        ) : (
           <Link to="/">
-            <button className={styles.voltarButton}>
-              Voltar para o menu
-            </button>
-          </Link>}
+            <button className={styles.voltarButton}>Voltar para o menu</button>
+          </Link>
+        )}
       </div>
     </div>
   );

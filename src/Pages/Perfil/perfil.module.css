@@ -87,10 +87,7 @@
   display: flex;
   width: 60%;
   margin: auto;
-<<<<<<< HEAD
   gap: 1.3rem;
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 }
 
 .itemGroup {
@@ -106,20 +103,13 @@
   display: flex;
   margin: auto;
   width: 60%;
-<<<<<<< HEAD
   gap: 1.5rem;
-=======
-  gap: 1rem;
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 }
 
 .groupLogradouro {
   width: 90%;
   display: flex;
-<<<<<<< HEAD
   gap: 1.5rem;
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 }
 
 .buttonVoltar {
@@ -227,10 +217,7 @@
     display: flex;
     width: 100%;
     margin: auto;
-<<<<<<< HEAD
     gap: 1.3rem !important;
-=======
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
   }
 
   .nomeUsuario h2 {

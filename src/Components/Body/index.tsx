@@ -9,10 +9,6 @@ import Mensagem from "../Mensagens";
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs'
 import Config from '../../Config.json';
 import axios from "axios";
-<<<<<<< HEAD
-=======
-import Mapa from "../Mapa";
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
 
@@ -92,11 +88,7 @@ function Body() {
 
   return (
     <div className={styles.body}>
-<<<<<<< HEAD
-      <img src={Img1} className={styles.imgBody} />
-=======
-      <img src={Img1} alt="img1Body" className={styles.imgBody} />
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+      <img alt='Imagem Body' src={Img1} className={styles.imgBody} />
       <div className={styles.contentImg1}>
         <p className={styles.contentP1Text}>
           {dataMensagem && dataMensagem[conteudoIndex] ? (conteudoIndex + 1).toString().padStart(2, '0') : ""}
@@ -112,11 +104,7 @@ function Body() {
         </div>
       </div>
       <div className={styles.contentImg2}>
-<<<<<<< HEAD
-        <img src={Img2_1} className={styles.img2_1Body} />
-=======
-        <img src={Img2_1} alt="img2Body" className={styles.img2_1Body} />
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+        <img alt='Segunda imagem do body' src={Img2_1} className={styles.img2_1Body} />
         <div className={styles.img2Body} style={{ backgroundImage: `url(${Img2})`, backgroundRepeat: 'no-repeat' }}>
           <h1 className={styles.titleImg2}>Vitória Garavazzo</h1>
           <span className={styles.lineImg2}></span>
@@ -179,11 +167,7 @@ function Body() {
         <p className={styles.textSobre}>{dataSobreMensagem}</p>
       </div>
       <div>
-<<<<<<< HEAD
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d889.3901165919999!2d-49.07529362425366!3d-26.917441094776482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94df18db008c61a3%3A0xf8542c8d2aaf81f9!2sR.%20Petr%C3%B3polis%2C%20100%20-%20Centro%2C%20Blumenau%20-%20SC%2C%2089010-240!5e0!3m2!1spt-BR!2sbr!4v1719961796510!5m2!1spt-BR!2sbr" width="100%" height="600" style={{ margin: '1rem 0 1rem 0', border: '0' }} loading="lazy"/>
-=======
-        <Mapa />
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+        <iframe title="Vitória Garavazzo" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d889.3901165919999!2d-49.07529362425366!3d-26.917441094776482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94df18db008c61a3%3A0xf8542c8d2aaf81f9!2sR.%20Petr%C3%B3polis%2C%20100%20-%20Centro%2C%20Blumenau%20-%20SC%2C%2089010-240!5e0!3m2!1spt-BR!2sbr!4v1719961796510!5m2!1spt-BR!2sbr" width="100%" height="600" style={{ margin: '1rem 0 1rem 0', border: '0' }} loading="lazy"/>
       </div>
       <Footer />
     </div>

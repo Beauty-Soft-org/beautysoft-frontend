@@ -157,7 +157,6 @@
      }
    }
 
-<<<<<<< HEAD
    .containerHorarios {
     min-width: 20rem !important;
    }
@@ -168,11 +167,6 @@
      max-height: 22rem;
      overflow-y: auto;
      margin-bottom: 1rem;
-=======
-   .contentHorarios {
-     display: flex;
-     gap: 1rem;
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
      .column {
        padding: .5rem 3rem .5rem 3rem;

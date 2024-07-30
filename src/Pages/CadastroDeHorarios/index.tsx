@@ -6,7 +6,6 @@ import axios from 'axios';
 import Config from '../../Config.json';
 import Modal from 'react-modal';
 import Table from '../../Components/Table';
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 const CadastroHorarios: React.FC = () => {

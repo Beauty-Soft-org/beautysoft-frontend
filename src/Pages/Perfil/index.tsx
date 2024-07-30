@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Config from '../../Config.json';
 import axios from "axios";
 import InputMask from 'react-input-mask';
@@ -26,15 +26,70 @@ function Perfil() {
     complemento: "",
   });
   const [data, setData] = useState([]);
-<<<<<<< HEAD
   const [dataUsuarios, setDataUsuarios] = useState<any[]>();
   const navigate = useNavigate();
   const [dataPerfilMensagem, setDataPerfilMensagem] = useState<any>();
   const [aba, setAba] = useState<string>(localStorage.getItem('status') === 'Admin' ? 'Agendamentos' : 'Perfil');
 
-  async function run() {
-    try {
+  const buscarUsuarios = useCallback(async () => {
+    if (localStorage.getItem('status') === 'Admin') {
+      try {
+        const response = await axios.get(`${Config.baseUrl}/api/PerfilUsuario`);
+        const dataUsuarios: any[] = response?.data?.map((item: any) => ({
+          Nome: item.nome,
+          CPF: item.cpf,
+          Cep: item.cep,
+          'Data de Nascimento': item.dataNascimento,
+          Email: item.email,
+          'Número da Casa': item.numeroCasa,
+          Telefone: item.telefone,
+        }));
 
+        setDataUsuarios(dataUsuarios);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+      }
+    }
+  }, []);
+
+  const run2 = useCallback(() => {
+    const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
+
+    axios.get(apiUrl)
+      .then((response: any) => {
+
+        const modifiedData = response.data.filter((item: any) => item.email === localStorage.getItem('email'))?.map((item: any) => {
+          const dataHoraAgendada = new Date(item.dataHoraAgendada);
+
+          const formatoDataHora: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          };
+
+          return {
+            Nome: item.nome,
+            id: item.id,
+            Descrição: item.descricao,
+            Email: item.email,
+            "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
+            'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
+            Valor: ` R$ ${item.valor}`,
+            Tempo: item.tempo,
+          };
+        });
+
+        setData(modifiedData);
+      })
+      .catch((error: any) => {
+        console.error('Erro ao buscar agendamentos:', error);
+      });
+  }, []);
+
+  const run = useCallback(async () => {
+    try {
       if (localStorage.getItem('status') === null) {
         navigate('/register');
       }
@@ -68,38 +123,12 @@ function Perfil() {
       }
     }
 
-    if (localStorage.getItem('status') == 'Admin') {
+    if (localStorage.getItem('status') === 'Admin') {
       buscarUsuarios();
     }
-  }
+  }, [dataPerfil.email, navigate, buscarUsuarios, run2]);
 
-  async function buscarUsuarios() {
-    if (localStorage.getItem('status') === 'Admin') {
-      try {
-        const response = await axios.get(`${Config.baseUrl}/api/PerfilUsuario`);
-        const dataUsuarios: any[] = response?.data?.map((item: any) => ({
-          Nome: item.nome,
-          CPF: item.cpf,
-          Cep: item.cep,
-          'Data de Nascimento': item.dataNascimento,
-          Email: item.email,
-          'Número da Casa': item.numeroCasa,
-          Telefone: item.telefone,
-        }));
-
-        setDataUsuarios(dataUsuarios);
-      } catch (error) {
-        console.error('Erro ao buscar usuários:', error);
-      }
-    }
-  }
-=======
-  const navigate = useNavigate();
-  const [dataPerfilMensagem, setDataPerfilMensagem] = useState<any>();
-  const [aba, setAba] = useState<string>('Perfil');
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
-
-  async function handleUpdateProfile() {
+  const handleUpdateProfile = useCallback(async () => {
     try {
       const params = {
         nome: dataPerfil.nome,
@@ -140,150 +169,28 @@ function Perfil() {
     } catch (error) {
       setDataPerfilMensagem({ type: "error", message: "Erro ao atualizar/cadastrar perfil. Tente novamente mais tarde." });
     }
-  }
-
-<<<<<<< HEAD
-  const run2 = () => {
-    const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
-
-    axios.get(apiUrl)
-      .then((response: any) => {
-
-        const modifiedData = response.data.filter((item: any) => item.email === localStorage.getItem('email'))?.map((item: any) => {
-          const dataHoraAgendada = new Date(item.dataHoraAgendada);
-
-          const formatoDataHora: Intl.DateTimeFormatOptions = {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          };
-
-          return {
-            Nome: item.nome,
-            id: item.id,
-            Descrição: item.descricao,
-            Email: item.email,
-            "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
-            'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
-            Valor: ` R$ ${item.valor}`,
-            Tempo: item.tempo,
-          };
-        });
-
-        setData(modifiedData);
-      })
-      .catch((error: any) => {
-        console.error('Erro ao buscar agendamentos:', error);
-      });
-  };
+  }, [dataPerfil]);
 
   useEffect(() => {
     run();
-  }, [])
-=======
-  useEffect(() => {
-    async function run() {
-      try {
-        console.log('email', localStorage.getItem('email'))
-
-        if (localStorage.getItem('status') === null) {
-          navigate('/register');
-        }
-        console.log('dataPerfil', dataPerfil)
-        const getPerfilUsuario = await axios.get(`${Config.baseUrl}/api/PerfilUsuario/${dataPerfil.email}`);
-
-        const dataNascimentoFormatada = new Date(getPerfilUsuario.data.dataNascimento).toISOString().split('T')[0];
-
-        setDataPerfil((prevState: any) => ({
-          ...prevState,
-          nome: getPerfilUsuario.data.nome,
-          sobrenome: getPerfilUsuario.data.sobrenome,
-          telefone: getPerfilUsuario.data.telefone,
-          dataNascimento: dataNascimentoFormatada,
-          cpf: getPerfilUsuario.data.cpf,
-          cep: getPerfilUsuario.data.cep,
-          uf: getPerfilUsuario.data.uf,
-          municipio: getPerfilUsuario.data.municipio,
-          bairro: getPerfilUsuario.data.bairro,
-          logradouro: getPerfilUsuario.data.logradouro,
-          numero: getPerfilUsuario.data.numeroCasa,
-          complemento: getPerfilUsuario.data.complemento,
-        }));
-
-        run2();
-      } catch (error: any) {
-        if (error.response?.status === 404) {
-          console.log('Perfil de usuário não encontrado');
-        } else {
-          console.error('Erro ao obter perfil de usuário:', error);
-        }
-      }
-    }
-
-    const run2 = () => {
-      const apiUrl = `${Config.baseUrl}/api/Agendamentos`;
-
-      axios.get(apiUrl)
-        .then((response) => {
-
-          const modifiedData = response.data.filter((item: any) => item.email === localStorage.getItem('email')).map((item: any) => {
-            const dataHoraAgendada = new Date(item.dataHoraAgendada);
-
-            const formatoDataHora: Intl.DateTimeFormatOptions = {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            };
-
-            return {
-              Nome: item.nome,
-              id: item.id,
-              Descrição: item.descricao,
-              Email: item.email,
-              "Tipo de Procedimento": item.tipoProcedimento === 1 ? 'Corporal' : 'Facial',
-              'Data e Hora Agendada': dataHoraAgendada.toLocaleString('pt-BR', formatoDataHora),
-              Valor: ` R$ ${item.valor}`,
-              Tempo: item.tempo,
-            };
-          });
-
-          setData(modifiedData);
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar agendamentos:', error);
-        });
-    };
-
-    run();
-  }, [dataPerfil, navigate]);
-
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
+  }, [run]);
 
   useEffect(() => {
     if (dataPerfil.cep) {
       fetch(`https://viacep.com.br/ws/${dataPerfil.cep}/json/`)
-        .then(response => response.json())
-        .then(data => {
-          setDataPerfil({
-            ...dataPerfil,
+        .then((response) => response.json())
+        .then((data) => {
+          setDataPerfil((prevDataPerfil: any) => ({
+            ...prevDataPerfil,
             uf: data.uf,
             municipio: data.localidade,
             bairro: data.bairro,
             logradouro: data.logradouro,
-          });
+          }));
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     }
-<<<<<<< HEAD
   }, [dataPerfil.cep]);
-=======
-  }, [dataPerfil.cep, setDataPerfil, dataPerfil]);
-
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
 
   return (
     <div>
@@ -296,15 +203,10 @@ function Perfil() {
       </div>
       <div className={styles.perfil}>
         <div className={styles.menu}>
-<<<<<<< HEAD
           {localStorage.getItem('status') !== 'Admin' &&
             <span onClick={() => setAba('Perfil')} className={styles.menuItem}>Perfil</span>
           }
           <span onClick={() => { setAba('Agendamentos'); run2() }} className={styles.menuItem}>{localStorage.getItem('status') !== 'Admin' && 'Meus agendamentos'}</span>
-=======
-          <span onClick={() => setAba('Perfil')} className={styles.menuItem}>Perfil</span>
-          <span onClick={() => setAba('Agendamentos')} className={styles.menuItem}>Meus agendamentos</span>
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
         </div>
         {aba === 'Perfil' ? (
           <div>
@@ -333,7 +235,7 @@ function Perfil() {
                     id="email"
                     name="email"
                     value={dataPerfil.email}
-                    disabled
+                    readOnly
                   />
                 </div>
               </div>
@@ -480,7 +382,6 @@ function Perfil() {
               </div>
             </form>
           </div>
-<<<<<<< HEAD
         ) : localStorage.getItem('status') === 'Admin' ? (
           <div className={styles.visualizarBox}>
             {dataUsuarios?.length === 0 ? <span className={styles.titleVisualizar}>Não tem usuários cadastrados para serem exibidos</span> :
@@ -497,13 +398,6 @@ function Perfil() {
             {data?.length === 0 ? <span className={styles.titleVisualizar}>Você não possui agendamentos para serem exibidos.</span> :
               <div>
                 <span className={styles.titleVisualizar}>{data?.length === 1 ? 'Meu Agendamento' : 'Meus Agendamentos'}</span>
-=======
-        ) : (
-          <div className={styles.visualizarBox}>
-            {data.length === 0 ? <span className={styles.titleVisualizar}>Você não possui agendamentos para serem exibidos.</span> :
-              <div>
-                <span className={styles.titleVisualizar}>{data.length === 1 ? 'Meu Agendamento' : 'Meus Agendamentos'}</span>
->>>>>>> 640ee22f845a448bd6551a21e161878272fe9d55
                 <div className={styles.contentTable}>
                   <Table data={data} />
                 </div>
