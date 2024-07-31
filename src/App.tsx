@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Pages/Login'
+import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Procedimentos from './Pages/Procedimentos';
 import Voucher from './Pages/Voucher';
@@ -16,9 +16,9 @@ import { PrimeReactProvider } from 'primereact/api';
 import AgendamentoForm from './Pages/CadastroDeHorarios';
 
 function App() {
-
-
+  // Obtenção do status do usuário
   const status = localStorage.getItem('status');
+  console.log('Status do usuário:', status); // Log para depuração
 
   const value = {
     cssTransition: false,
@@ -39,7 +39,7 @@ function App() {
           <Route path="/servicos" element={(status === 'Usuario' || status === 'Admin') ? <Servicos /> : <Home />} />
           <Route path="/agendamentos" element={(status === 'Usuario' || status === 'Admin') ? <Agendamento /> : <Home />} />
           <Route path="/cadastroHorarios" element={(status === 'Usuario' || status === 'Admin') ? <AgendamentoForm /> : <Home />} />
-          <Route path="/perfil" element={(status !== null ? <Perfil /> : <Register />)} />
+          <Route path="/perfil" element={status !== null ? <Perfil /> : <Register />} />
         </Routes>
       </BrowserRouter>
     </PrimeReactProvider>
